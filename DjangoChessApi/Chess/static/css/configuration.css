@@ -1,0 +1,47 @@
+.references {
+  display: flex;
+  flex-direction: column;
+}
+
+.card {
+  width: 10rem;
+}
+
+.expand {
+  width: 50rem;
+  order: 5;
+}
+
+.expand  .moves {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.expand .moves .movement {
+  flex: 1;
+}
+
+.moves {
+  display: none;
+}
+
+.pieces {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.title {
+  display: flex;
+  justify-content: center;
+}
+
+.card-img-top {
+  width: 10rem;
+  margin: auto;
+}
+
+h6 {
+  color:rgb(145, 145, 145);
+  padding-top: 1rem;
+}

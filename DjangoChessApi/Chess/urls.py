@@ -4,7 +4,7 @@ from . import views
 
 
 urlpatterns = [
-    path('', views.current_datetime),
+    path('', views.chess_configuration),
 ]
 
 app_name = 'Chess'
