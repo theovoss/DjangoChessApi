@@ -110,14 +110,14 @@ version = "3.0.4"
 
 [[package]]
 category = "main"
-description = "Chess is a Python 3 package template."
+description = "Chess is a Python 2 and 3 package template."
 name = "Chess"
 optional = false
 python-versions = "*"
 version = "0.0.0"
 
 [package.source]
-reference = "538f39f87259110b42d57ca4c42acc3c50c2833d"
+reference = "26d87e267895c5426179ab3bc7e5fec30e69bd38"
 type = "git"
 url = "https://github.com/theovoss/Chess"
 [[package]]
@@ -1042,7 +1042,7 @@ docs = ["sphinx", "jaraco.packaging (>=3.2)", "rst.linker (>=1.9)"]
 testing = ["jaraco.itertools", "func-timeout"]
 
 [metadata]
-content-hash = "dfc26b6941d2f9ebfb198de066d7833f4a0bf728fb7cc5ff118017fcc13f750f"
+content-hash = "9c7bb5377305356b48aff9eb27d592007d9a195f594921fe12fc14a576bd1fdb"
 lock-version = "1.0"
 python-versions = "^3.6.4"
 

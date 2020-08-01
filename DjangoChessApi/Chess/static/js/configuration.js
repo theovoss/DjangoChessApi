@@ -1,14 +1,15 @@
 let cards = [...document.querySelectorAll('.card')];
+let card_images = [...document.querySelectorAll('.card img')];
 
-cards.forEach((card) => {
-  card.addEventListener('click', expand);
+card_images.forEach((image) => {
+  image.addEventListener('click', expand);
 });
 
 function expand(e) {
   cards.forEach((card) => {
-    if(this !== card) {
+    if(this.parentElement !== card) {
       card.classList.remove('expand');
     }
   })
-  this.classList.toggle('expand');
+  this.parentElement.classList.toggle('expand');
 }

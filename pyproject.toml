@@ -32,7 +32,7 @@ minilog = "^1.6"
 # Deployment
 whitenoise = "^5.0.1"
 gunicorn = "^20.0.4"
-chess = {git = "https://github.com/theovoss/Chess"}
+chess = {git = "https://github.com/theovoss/Chess", rev = "26d87e267895c5426179ab3bc7e5fec30e69bd38"}
 
 [tool.poetry.dev-dependencies]
 
