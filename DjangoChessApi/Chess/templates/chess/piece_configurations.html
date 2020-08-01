@@ -9,7 +9,13 @@
           <form>
             {% for direction in directions %}
               <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="{{ piece }} {{ direction }}">
+                {% with move=data.moves|index:i %}
+                {% if direction in move.directions %}
+                  <input type="checkbox" class="form-check-input" id="{{ piece }} {{ direction }}" checked>
+                {% else %}
+                  <input type="checkbox" class="form-check-input" id="{{ piece }} {{ direction }}">
+                {% endif %}
+                {% endwith %}
                 <label class="form-check-label" for="{{ piece }} {{ direction }}">{{ direction }}</label>
               </div>
             {% endfor %}
