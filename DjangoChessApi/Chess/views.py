@@ -22,18 +22,22 @@ def chess_configuration(request):
     directions = get_movement_directions()
     movement_rules = get_movement_rules()
     capture_actions = get_capture_action_rules()
+    normal_chess_rules = get_standard_chess_pieces()
+
+    pieces = normal_chess_rules['pieces']
+
+    pieces['king']['image'] = 'https://upload.wikimedia.org/wikipedia/commons/f/f0/Chess_kdt45.svg'
+    pieces['queen']['image'] = 'https://upload.wikimedia.org/wikipedia/commons/4/47/Chess_qdt45.svg'
+    pieces['knight']['image'] = 'https://upload.wikimedia.org/wikipedia/commons/e/ef/Chess_ndt45.svg'
+    pieces['bishop']['image'] = 'https://upload.wikimedia.org/wikipedia/commons/9/98/Chess_bdt45.svg'
+    pieces['rook']['image'] = 'https://upload.wikimedia.org/wikipedia/commons/f/ff/Chess_rdt45.svg'
+    pieces['pawn']['image'] = 'https://upload.wikimedia.org/wikipedia/commons/c/c7/Chess_pdt45.svg'
 
     context = {
-        'pieces': {
-            'King': {'image': 'https://upload.wikimedia.org/wikipedia/commons/f/f0/Chess_kdt45.svg'},
-            'Queen': {'image': 'https://upload.wikimedia.org/wikipedia/commons/4/47/Chess_qdt45.svg'},
-            'Knight': {'image': 'https://upload.wikimedia.org/wikipedia/commons/e/ef/Chess_ndt45.svg'},
-            'Bishop': {'image': 'https://upload.wikimedia.org/wikipedia/commons/9/98/Chess_bdt45.svg'},
-            'Rook': {'image': 'https://upload.wikimedia.org/wikipedia/commons/f/ff/Chess_rdt45.svg'},
-            'Pawn': {'image': 'https://upload.wikimedia.org/wikipedia/commons/c/c7/Chess_pdt45.svg'}
-        },
+        'pieces': pieces,
         'directions': directions,
         'movements': movement_rules,
-        'capture_actions': capture_actions
+        'capture_actions': capture_actions,
+        'pieces': normal_chess_rules['pieces']
     }
     return render(request, 'chess/piece_configurations.html', context)

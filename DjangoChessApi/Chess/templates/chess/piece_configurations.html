@@ -1,8 +1,9 @@
 {% extends 'chess/configuration.html' %}
+{% load index %}
 
 {% block piece_configuration %}
   <div class='moves'>
-    {% for i in '1234'|make_list %}
+    {% for i in '0123'|make_list %}
       <div class="movement">
           <h6 class="card-subtitle">Directions {{ forloop.counter }}</h6>
           <form>
@@ -18,7 +19,14 @@
           <form>
             {% for movement in movements %}
               <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="{{ piece }} {{ movement }}">
+                {% with move=data.moves|index:i %}
+                  {% if movement in move.conditions %}
+                    <input type="checkbox" class="form-check-input checked" id="{{ piece }} {{ movement }}" checked>
+                  {% else %}
+                    <input type="checkbox" class="form-check-input" id="{{ piece }} {{ movement }}">
+                  {% endif %}
+                {% endwith %}
+
                 <label class="form-check-label" for="{{ piece }} {{ movement }}">{{ movement }}</label>
               </div>
             {% endfor %}
@@ -36,6 +44,5 @@
           </form>
         </div>
     {% endfor %}
-    <p>Subtemplate loaded!!</p>
   </div>
 {% endblock %}
