@@ -5,6 +5,7 @@ from rest_framework import routers
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 
+from .viewsets import MovementViewSet, DirectionViewSet, CaptureActionViewSet, GameSettingsViewSet, GameTypeViewSet
 
 # Root
 
@@ -12,7 +13,11 @@ root = routers.DefaultRouter()
 
 
 # App: Chess
-
+root.register(r'movements', MovementViewSet, basename="movements")
+root.register(r'directions', DirectionViewSet, basename="directions")
+root.register(r'capture-actions', CaptureActionViewSet, basename="capture-actions")
+root.register(r'game-settings', GameSettingsViewSet, basename="game-settings")
+root.register(r'model-test', GameTypeViewSet, basename="model-test")
 # root.register(...)
 
 
