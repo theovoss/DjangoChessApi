@@ -33,6 +33,7 @@ class GameTypeViewSet(viewsets.ModelViewSet):
     def set_chess_data(self, initial_data, piece, index, key, values):
         if 'pieces' not in initial_data:
             initial_data['pieces'] = {}
+        if piece not in initial_data['pieces']:
             initial_data['pieces'][piece] = {}
 
         piece = initial_data['pieces'][piece]

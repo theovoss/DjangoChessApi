@@ -47,7 +47,6 @@ class ConfigurationTests(APITestCase):
         url = reverse('standard-chess-list')
         response = self.client.get(url)
 
-        print(response.data)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertIn('pieces', response.data)
         self.assertIn('queen', response.data['pieces'])

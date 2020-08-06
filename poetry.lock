@@ -120,6 +120,7 @@ version = "0.1.0"
 reference = "ef354e23989781f98fe5117fe454ffc2f9c9342c"
 type = "git"
 url = "https://github.com/theovoss/Chess"
+
 [[package]]
 category = "dev"
 description = "Composable command line interface toolkit"
@@ -244,6 +245,14 @@ version = "3.4.0"
 
 [package.dependencies]
 Django = ">=2.0"
+
+[[package]]
+category = "main"
+description = "Best way to have Django DRY forms"
+name = "django-crispy-forms"
+optional = false
+python-versions = ">=3.5"
+version = "1.9.2"
 
 [[package]]
 category = "main"
@@ -1042,7 +1051,7 @@ docs = ["sphinx", "jaraco.packaging (>=3.2)", "rst.linker (>=1.9)"]
 testing = ["jaraco.itertools", "func-timeout"]
 
 [metadata]
-content-hash = "45f4519f77783b988544dbfee7ad3f91e746d16caa259a78537e0ae4a0ff0085"
+content-hash = "83b24390567b5d123959bed9d6e376e1594d184128e2a3c20fd4c53f69822075"
 lock-version = "1.0"
 python-versions = "^3.6.4"
 
@@ -1159,6 +1168,10 @@ django-allauth = [
 django-cors-headers = [
     {file = "django-cors-headers-3.4.0.tar.gz", hash = "sha256:f5218f2f0bb1210563ff87687afbf10786e080d8494a248e705507ebd92d7153"},
     {file = "django_cors_headers-3.4.0-py3-none-any.whl", hash = "sha256:5240062ef0b16668ce8a5f43324c388d65f5439e1a30e22c38684d5ddaff0d15"},
+]
+django-crispy-forms = [
+    {file = "django-crispy-forms-1.9.2.tar.gz", hash = "sha256:f2f1e0fbb458851636447cfb6be1a611b40c8ac9e41a74ba923011378670b43b"},
+    {file = "django_crispy_forms-1.9.2-py3-none-any.whl", hash = "sha256:888bb316db89b60050a42ec35080facb361d823eec38010ccb0702f45642d3b8"},
 ]
 django-grappelli = [
     {file = "django-grappelli-2.14.2.tar.gz", hash = "sha256:206d34525007e996dc989f1a0deef653b1fae5e0972a1fb24a59a3ad7e67141a"},

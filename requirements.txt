@@ -9,6 +9,7 @@ dj-database-url==0.4.2
 django==3.0.8
 django-allauth==0.42.0
 django-cors-headers==3.4.0
+django-crispy-forms==1.9.2
 django-grappelli==2.14.2
 django-redis-cache==2.1.1
 djangorestframework==3.11.0

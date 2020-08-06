@@ -11,9 +11,9 @@
               <div class="form-check">
                 {% with move=data.moves|index:i %}
                 {% if direction in move.directions %}
-                  <input type="checkbox" class="form-check-input" id="{{ piece }} {{ direction }}" checked>
+                  <input data-piece="{{piece}}" data-index="{{i}}" data-key="directions" data-value="{{direction}}" type="checkbox" class="form-check-input" name="{{ piece }}{{ i }}direction" checked>
                 {% else %}
-                  <input type="checkbox" class="form-check-input" id="{{ piece }} {{ direction }}">
+                  <input data-piece="{{piece}}" data-index="{{i}}" data-key="directions" data-value="{{direction}}" type="checkbox" class="form-check-input" name="{{ piece }}{{ i }}direction">
                 {% endif %}
                 {% endwith %}
                 <label class="form-check-label" for="{{ piece }} {{ direction }}">{{ direction }}</label>
@@ -27,9 +27,9 @@
               <div class="form-check">
                 {% with move=data.moves|index:i %}
                   {% if movement in move.conditions %}
-                    <input type="checkbox" class="form-check-input checked" id="{{ piece }} {{ movement }}" checked>
+                    <input data-piece="{{piece}}" data-index="{{i}}" data-key="conditions" data-value="{{movement}}" type="checkbox" class="form-check-input checked" name="{{ piece }}{{ i }}condition" checked>
                   {% else %}
-                    <input type="checkbox" class="form-check-input" id="{{ piece }} {{ movement }}">
+                    <input data-piece="{{piece}}" data-index="{{i}}" data-key="conditions" data-value="{{movement}}" type="checkbox" class="form-check-input" name="{{ piece }}{{ i }}condition">
                   {% endif %}
                 {% endwith %}
 
@@ -43,7 +43,13 @@
           <form>
             {% for action in capture_actions %}
               <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="{{ piece }} {{ action }}">
+                {% with move=data.moves|index:i %}
+                  {% if action in move.capture_actions %}
+                  <input data-piece="{{piece}}" data-index="{{i}}" data-key="capture_actions" data-value="{{action}}" type="checkbox" class="form-check-input" name="{{ piece }}{{ i }}action" checked>
+                  {% else %}
+                    <input data-piece="{{piece}}" data-index="{{i}}" data-key="capture_actions" data-value="{{action}}" type="checkbox" class="form-check-input" name="{{ piece }}{{ i }}action">
+                  {% endif %}
+                {% endwith %}
                 <label class="form-check-label" for="{{ piece }} {{ action }}">{{ action }}</label>
               </div>
             {% endfor %}
