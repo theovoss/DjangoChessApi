@@ -1,7 +1,8 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
+from django.urls import reverse
 
-from .models import GameType
+from .models import GameType, Game
 from .forms import GameTypeForm
 
 from chess.chess_configurations import *
@@ -20,7 +21,29 @@ def current_datetime(request):
     return HttpResponse(html)
 
 
-def chess_create_configuration(request):
+def create_game(request):
+    game_types = GameType.objects.all()
+    return render(request, 'chess/create_game.html', {'game_types': game_types})
+
+
+def create_game_redirect(request, game_type_id):
+    game_type = GameType.objects.get(pk=game_type_id)
+    new_game = Game(rules=game_type.rules['pieces'], current_board=game_type.rules['board'])
+    new_game.save()
+    print(new_game.id)
+    url = reverse('Chess:play-game', kwargs={'game_id': new_game.id})
+    print(url)
+    return HttpResponseRedirect(url)
+
+
+def play_game(request, game_id):
+    game = Game.objects.get(pk=game_id)
+    # name = game.rules['name']
+    name = "hardcoded for now"
+    return render(request, 'chess/play_game.html', { 'name': name })
+
+
+def create_configuration(request):
     if request.method == "POST":
         form = GameTypeForm(request.POST)
         if form.is_valid():
@@ -32,7 +55,7 @@ def chess_create_configuration(request):
 
 
 
-def chess_configuration(request, game_type_id):
+def configuration(request, game_type_id):
     game_type = GameType.objects.get(pk=game_type_id)
 
     if request.method == "POST":

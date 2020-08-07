@@ -1,0 +1,9 @@
+.game_types {
+  display: flex;
+  flex-direction: column;
+}
+
+.game_types a {
+  margin-top: 2px;
+  background-color: lightblue;
+}

@@ -4,8 +4,11 @@ from . import views
 
 
 urlpatterns = [
-    path('configure/', views.chess_create_configuration, name="configure"),
-    path('configure/<int:game_type_id>/', views.chess_configuration, name="configure-edit")
+    path('configure/', views.create_configuration, name="configure"),
+    path('configure/<int:game_type_id>/', views.configuration, name="configure-edit"),
+    path('game/create/', views.create_game, name="create-game"),
+    path('game/create/<int:game_type_id>/', views.create_game_redirect, name="create-game-redirect"),
+    path('game/play/<int:game_id>/', views.play_game, name="play-game")
 ]
 
 app_name = 'Chess'
