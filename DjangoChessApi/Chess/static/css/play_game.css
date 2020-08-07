@@ -1,0 +1,33 @@
+.chess_board {
+  display: flex;
+  flex-direction: column;
+  height: 500px;
+  width: 500px;
+}
+
+.row {
+  display: flex;
+  flex: 1;
+}
+
+.square {
+  flex: 1;
+}
+
+.dark {
+  background-color: darkblue;
+}
+
+.light {
+  background-color: lightblue;
+}
+
+.square img {
+  height: 100%;
+  width: 100%;
+}
+
+.selected {
+  border: 1px solid darkgreen;
+  background-color: lightgreen;
+}

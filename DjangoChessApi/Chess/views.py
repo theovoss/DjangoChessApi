@@ -4,6 +4,7 @@ from django.urls import reverse
 
 from .models import GameType, Game
 from .forms import GameTypeForm
+from .helpers import get_image, get_displayable_board
 
 from chess.chess_configurations import *
 
@@ -40,7 +41,8 @@ def play_game(request, game_id):
     game = Game.objects.get(pk=game_id)
     # name = game.rules['name']
     name = "hardcoded for now"
-    return render(request, 'chess/play_game.html', { 'name': name })
+    displayable_board = get_displayable_board(game.current_board)
+    return render(request, 'chess/play_game.html', { 'name': name, 'board': displayable_board })
 
 
 def create_configuration(request):
@@ -76,18 +78,8 @@ def configuration(request, game_type_id):
     else:
         pieces = normal_chess_rules['pieces']
 
-    images = {
-        'king': 'https://upload.wikimedia.org/wikipedia/commons/f/f0/Chess_kdt45.svg',
-        'queen': 'https://upload.wikimedia.org/wikipedia/commons/4/47/Chess_qdt45.svg',
-        'knight': 'https://upload.wikimedia.org/wikipedia/commons/e/ef/Chess_ndt45.svg',
-        'bishop': 'https://upload.wikimedia.org/wikipedia/commons/9/98/Chess_bdt45.svg',
-        'rook': 'https://upload.wikimedia.org/wikipedia/commons/f/ff/Chess_rdt45.svg',
-        'pawn': 'https://upload.wikimedia.org/wikipedia/commons/c/c7/Chess_pdt45.svg'
-    }
-
     for piece in pieces:
-        if piece in images:
-            pieces[piece]['image'] = images[piece]
+        pieces[piece]['image'] = get_image(piece, 'black')
 
     context = {
         'id': game_type.id,

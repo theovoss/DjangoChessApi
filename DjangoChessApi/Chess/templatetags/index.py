@@ -1,6 +1,7 @@
 from django import template
 register = template.Library()
 
+
 @register.filter
 def index(indexable, index):
     i = int(index)

@@ -1,2 +1,31 @@
-<h1>Would you like to play a Game?</h1>
-<h2>Maybe {{ name }}?</h2>
+{% load static %}
+{% load get_item %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="{% static 'css/play_game.css' %}">
+</head>
+<body>
+  <h1>Would you like to play a Game?</h1>
+  <h2>Maybe {{ name }}?</h2>
+  <div class="chess_board">
+    {% for row in '76543210' %}
+      <div class="row">
+        {% for column in '01234567' %}
+          <div class="square" data-row={{row}} data-column={{column}} id="{{row}},{{column}}">
+            {% with key=""|add:row|add:","|add:column %}
+              {% if board|get_item:key %}
+              <img src="{{ board|get_item:key }}">
+              {% endif %}
+            {% endwith %}
+          </div>
+        {% endfor %}
+      </div>
+    {% endfor %}
+  </div>
+
+  <script src="{% static 'js/play_game.js' %}"></script>
+</body>
