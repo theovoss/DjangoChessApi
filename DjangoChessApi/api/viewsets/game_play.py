@@ -1,3 +1,5 @@
+import pprint
+
 from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework import status
@@ -15,6 +17,9 @@ class MoveViewSet(viewsets.ViewSet):
     @action(methods=['POST'], detail=True, url_name="destinations")
     def get_destinations(self, request, pk=None):
         game = Game.objects.get(pk=pk)
+
+        pp = pprint.PrettyPrinter(indent=4)
+        pp.pprint(game.data)
         chess = Chess(game.data)
         row = int(request.data['row'])
         column = int(request.data['column'])

@@ -1,8 +1,8 @@
 .chess_board {
   display: flex;
   flex-direction: column;
-  height: 500px;
-  width: 500px;
+  height: 80vh;
+  width: 80vh;
 }
 
 .row {
@@ -12,6 +12,8 @@
 
 .square {
   flex: 1;
+  height: 11vh;
+  width: 11vh;
 }
 
 .dark {
