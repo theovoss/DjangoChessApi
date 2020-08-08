@@ -16,17 +16,23 @@ class GameType(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
 class Game(models.Model):
-    class Turn(models.TextChoices):
-        BLACK = 'b', _('Black')
-        WHITE = 'w', _('White')
+    data = JSONField() # is the data used by the chess library
 
-    rules = JSONField()
-    current_board = JSONField()
-    turn = models.CharField(
-        max_length=1,
-        choices=Turn.choices,
-        default=Turn.WHITE
-    )
+    @property
+    def rules(self):
+        return self.data['pieces']
+
+    @property
+    def board(self):
+        return self.data['board']
+
+    @property
+    def turn(self):
+        return self.data['players']['current']
+
+    @property
+    def turn_color(self):
+        return self.data['players'][self.turn]['color']
 
     history = JSONField(null=True)
     player1 = models.ForeignKey(User, null=True, on_delete=CASCADE, related_name='games_player1')

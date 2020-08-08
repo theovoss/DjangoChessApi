@@ -8,7 +8,7 @@ from chess.chess_configurations import get_movement_rules, \
                                        get_standard_chess_pieces
 
 from DjangoChessApi.Chess.models import GameType
-from .serializers import GameTypeSerializer
+from ..serializers import GameTypeSerializer
 
 class MovementViewSet(viewsets.ViewSet):
     def list(self, request):

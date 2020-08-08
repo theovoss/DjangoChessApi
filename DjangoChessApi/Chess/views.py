@@ -29,7 +29,7 @@ def create_game(request):
 
 def create_game_redirect(request, game_type_id):
     game_type = GameType.objects.get(pk=game_type_id)
-    new_game = Game(rules=game_type.rules['pieces'], current_board=game_type.rules['board'])
+    new_game = Game(data=game_type.rules)
     new_game.save()
     print(new_game.id)
     url = reverse('Chess:play-game', kwargs={'game_id': new_game.id})
@@ -39,10 +39,11 @@ def create_game_redirect(request, game_type_id):
 
 def play_game(request, game_id):
     game = Game.objects.get(pk=game_id)
-    # name = game.rules['name']
     name = "hardcoded for now"
-    displayable_board = get_displayable_board(game.current_board)
-    return render(request, 'chess/play_game.html', { 'name': name, 'board': displayable_board })
+    displayable_board = get_displayable_board(game.board)
+    destinations_url = reverse('move-destinations', args=str(game.id))
+    move_url = reverse('move-move', args=str(game.id))
+    return render(request, 'chess/play_game.html', { 'name': name, 'board': displayable_board, 'destinations_url': destinations_url, 'move_url': move_url })
 
 
 def create_configuration(request):
@@ -50,7 +51,7 @@ def create_configuration(request):
         form = GameTypeForm(request.POST)
         if form.is_valid():
             game_type = form.save()
-            return HttpResponseRedirect("/configure/{}/".format(game_type.id))
+            return HttpResponseRedirect(reverse('configure', game_type.id))
     else:
         form = GameTypeForm()
     return render(request, 'chess/create_configuration.html', {'form': form})

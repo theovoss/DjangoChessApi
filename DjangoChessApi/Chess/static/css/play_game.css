@@ -31,3 +31,8 @@
   border: 1px solid darkgreen;
   background-color: lightgreen;
 }
+
+.destination {
+  border: 1px solid gray;
+  background-color: lightgray;
+}

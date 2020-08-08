@@ -30,6 +30,7 @@ def _make_frontend_key(position):
 
 def get_displayable_board(board):
     displayable = {}
+
     for player in board: # dict
         for piece in board[player]: # dict
             color = 'white' if '1' in player else 'black'
