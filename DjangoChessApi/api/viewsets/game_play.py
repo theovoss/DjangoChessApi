@@ -24,6 +24,7 @@ class MoveViewSet(viewsets.ViewSet):
     @action(methods=['POST'], detail=True, url_name="move")
     def move(self, request, pk=None):
         game = Game.objects.get(pk=pk)
+
         chess = Chess(game.data)
 
         data = request.data
@@ -35,7 +36,8 @@ class MoveViewSet(viewsets.ViewSet):
         chess.move((start_row, start_column), (destination_row, destination_column))
 
         # update db with new board
-        game.current_board = chess.export()
+        game.data = chess.export()
+
         game.save()
 
         return Response("success, time to refresh")

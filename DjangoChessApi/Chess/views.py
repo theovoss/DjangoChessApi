@@ -43,7 +43,12 @@ def play_game(request, game_id):
     displayable_board = get_displayable_board(game.board)
     destinations_url = reverse('move-destinations', args=str(game.id))
     move_url = reverse('move-move', args=str(game.id))
-    return render(request, 'chess/play_game.html', { 'name': name, 'board': displayable_board, 'destinations_url': destinations_url, 'move_url': move_url })
+    return render(request, 'chess/play_game.html', {
+        'name': name,
+        'board': displayable_board,
+        'destinations_url': destinations_url,
+        'move_url': move_url
+    })
 
 
 def create_configuration(request):
