@@ -32,7 +32,7 @@ minilog = "^1.6"
 # Deployment
 whitenoise = "^5.0.1"
 gunicorn = "^20.0.4"
-chess = {git = "https://github.com/theovoss/Chess", rev = "33f3af81a6782f2f8117d37311d7be7bd3072fc3"}
+chess = {git = "https://github.com/theovoss/Chess", rev = "1548c266fa1fc5cd0372a3b75ed500dfa32b367b"}
 django-crispy-forms = "^1.9.2"
 
 [tool.poetry.dev-dependencies]

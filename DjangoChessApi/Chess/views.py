@@ -32,9 +32,7 @@ def create_game_redirect(request, game_type_id):
     game_type = GameType.objects.get(pk=game_type_id)
     new_game = Game(data=game_type.rules)
     new_game.save()
-    print(new_game.id)
     url = reverse('Chess:play-game', kwargs={'game_id': new_game.id})
-    print(url)
     return HttpResponseRedirect(url)
 
 
@@ -44,9 +42,6 @@ def play_game(request, game_id):
     displayable_board = get_displayable_board(game.board)
     destinations_url = reverse('move-destinations', args=[game.id])
     move_url = reverse('move-move', args=[game.id])
-    print("move url is: " + move_url)
-    print("destination url is: " + move_url)
-    print("game id is: " + str(game.id))
     return render(request, 'chess/play_game.html', {
         'name': name,
         'board': displayable_board,
@@ -66,7 +61,6 @@ def create_configuration(request):
     return render(request, 'chess/create_configuration.html', {'form': form})
 
 
-
 def configuration(request, game_type_id):
     game_type = GameType.objects.get(pk=game_type_id)
 
@@ -77,7 +71,6 @@ def configuration(request, game_type_id):
     else:
         form = GameTypeForm(instance=game_type)
 
-    log.debug(request)
     directions = get_movement_directions()
     movement_rules = get_movement_rules()
     capture_actions = get_capture_action_rules()
