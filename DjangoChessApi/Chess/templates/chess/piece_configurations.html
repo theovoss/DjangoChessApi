@@ -6,7 +6,7 @@
     {% for i in '0123'|make_list %}
       <div class="movement">
           <h6 class="card-subtitle">Directions {{ forloop.counter }}</h6>
-          <form>
+          <div>
             {% for direction in directions %}
               <div class="form-check">
                 {% with move=data.moves|index:i %}
@@ -19,10 +19,10 @@
                 <label class="form-check-label" for="{{ piece }} {{ direction }}">{{ direction }}</label>
               </div>
             {% endfor %}
-          </form>
-          <h6 class="card-subtitle"> Movement Rules {{ forloop.counter }}</h6>
+          </div>
 
-          <form>
+          <h6 class="card-subtitle"> Movement Rules {{ forloop.counter }}</h6>
+          <div>
             {% for movement in movements %}
               <div class="form-check">
                 {% with move=data.moves|index:i %}
@@ -36,16 +36,15 @@
                 <label class="form-check-label" for="{{ piece }} {{ movement }}">{{ movement }}</label>
               </div>
             {% endfor %}
-          </form>
+          </div>
 
           <h6 class="card-subtitle"> Capture Actions {{ forloop.counter }}</h6>
-
-          <form>
+          <div>
             {% for action in capture_actions %}
               <div class="form-check">
                 {% with move=data.moves|index:i %}
                   {% if action in move.capture_actions %}
-                  <input data-piece="{{piece}}" data-index="{{i}}" data-key="capture_actions" data-value="{{action}}" type="checkbox" class="form-check-input" name="{{ piece }}{{ i }}action" checked>
+                    <input data-piece="{{piece}}" data-index="{{i}}" data-key="capture_actions" data-value="{{action}}" type="checkbox" class="form-check-input" name="{{ piece }}{{ i }}action" checked>
                   {% else %}
                     <input data-piece="{{piece}}" data-index="{{i}}" data-key="capture_actions" data-value="{{action}}" type="checkbox" class="form-check-input" name="{{ piece }}{{ i }}action">
                   {% endif %}
@@ -53,7 +52,7 @@
                 <label class="form-check-label" for="{{ piece }} {{ action }}">{{ action }}</label>
               </div>
             {% endfor %}
-          </form>
+          </div>
         </div>
     {% endfor %}
   </div>

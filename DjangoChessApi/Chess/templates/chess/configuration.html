@@ -20,7 +20,7 @@
     <input type="submit" value="Submit">
 </form>
   <div class='pieces'>
-    <div class="url" data-url={% url 'Chess:configure-edit' id %}></div>
+    <div class="url" data-url={{ checkmark_url }}></div>
     {% for piece, data in pieces.items %}
       <div class='card'>
         <img class='card-img-top' src={{ data.image }} alt={{ piece }}>

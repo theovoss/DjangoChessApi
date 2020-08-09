@@ -1,6 +1,7 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
-from django.urls import reverse
+
+from rest_framework.reverse import reverse
 
 from .models import GameType, Game
 from .forms import GameTypeForm
@@ -41,8 +42,11 @@ def play_game(request, game_id):
     game = Game.objects.get(pk=game_id)
     name = "hardcoded for now"
     displayable_board = get_displayable_board(game.board)
-    destinations_url = reverse('move-destinations', args=str(game.id))
-    move_url = reverse('move-move', args=str(game.id))
+    destinations_url = reverse('move-destinations', args=[game.id])
+    move_url = reverse('move-move', args=[game.id])
+    print("move url is: " + move_url)
+    print("destination url is: " + move_url)
+    print("game id is: " + str(game.id))
     return render(request, 'chess/play_game.html', {
         'name': name,
         'board': displayable_board,
@@ -87,8 +91,11 @@ def configuration(request, game_type_id):
     for piece in pieces:
         pieces[piece]['image'] = get_image(piece, 'black')
 
+    checkmark_url = reverse('chess-configuration-checkmark', args=[game_type.id])
+
     context = {
         'id': game_type.id,
+        'checkmark_url': checkmark_url,
         'pieces': pieces,
         'directions': directions,
         'movements': movement_rules,

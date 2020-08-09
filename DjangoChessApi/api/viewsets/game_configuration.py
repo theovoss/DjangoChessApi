@@ -1,6 +1,7 @@
 from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.decorators import action
 
 from chess.chess_configurations import get_movement_rules, \
                                        get_movement_directions, \
@@ -67,7 +68,8 @@ class GameTypeViewSet(viewsets.ModelViewSet):
             'value': rule/direction/capture_actions
         }
     """
-    def partial_update(self, request, pk=None):
+    @action(methods=['POST'], detail=True, url_name="checkmark")
+    def checkmarks(self, request, pk=None):
         data = request.data
         data2 = dict(data)
 

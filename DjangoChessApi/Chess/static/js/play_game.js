@@ -60,7 +60,6 @@ function clickHandler(e) {
     // if this is a destination, call move api
     if(this.classList.contains('destination')) {
       url = document.querySelector('.move_url').dataset.url;
-
       data = {
         destination: {
           row: this.dataset.row,
