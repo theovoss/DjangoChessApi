@@ -11,12 +11,24 @@
   {% endblock %}
 </head>
 <body>
-  <div class="menu">
-    <a href={% url 'Chess:create-game' %}>New Game</a>
-    <a href={% url 'Chess:configure' %}>Define New Rules</a>
-    <a href="">Current Games</a>
-    <a href="">Complete Games</a>
-  </div>
+  <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+      <li class="nav-item">
+        <a class="nav-link" href={% url 'Chess:home' %}>Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href={% url 'Chess:create-game' %}>New Game</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href={% url 'Chess:configure' %}>Define New Rules</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link disabled" href="">Current Games</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link disabled" href="">Complete Games</a>
+      </li>
+  </nav>
   {% block body %}
 
   {% endblock %}

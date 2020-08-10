@@ -1,14 +1,12 @@
+{% extends 'chess/header.html' %}
 {% load static %}
 {% load get_item %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+{% block head %}
   <link rel="stylesheet" href="{% static 'css/play_game.css' %}">
-</head>
-<body>
+{% endblock %}
+
+{% block body %}
   <h1>Would you like to play a Game?</h1>
   <div class="destinations_url" data-url={{ destinations_url }}></div>
   <div class="move_url" data-url={{ move_url }}></div>
@@ -29,4 +27,4 @@
   </div>
 
   <script src="{% static 'js/play_game.js' %}"></script>
-</body>
+{% endblock %}
