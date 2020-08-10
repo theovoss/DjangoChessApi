@@ -1,0 +1,17 @@
+{% extends 'chess/header.html' %}
+{% load static %}
+
+{% block head %}
+  <link rel="stylesheet" href="{% static 'css/game_type.css' %}">
+{% endblock %}
+
+{% block body %}
+
+<div class="game-types">
+  {% for game_type in game_types %}
+    {% include "chess/game_type.html" with game_type=game_type %}
+  {% endfor %}
+</div>
+
+<script src="{% static 'js/game_type.js' %}"></script>
+{% endblock %}

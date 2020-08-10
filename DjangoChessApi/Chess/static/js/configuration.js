@@ -20,9 +20,7 @@ checkboxes.forEach((checkbox) => checkbox.addEventListener("change", save_checks
 
 function save_checks(e) {
   url = document.querySelector('.url').dataset.url;
-  console.log(url);
   group = document.getElementsByName(this.name);
-  console.log(group);
   data = {
     index: this.dataset.index,
     piece: this.dataset.piece,
@@ -34,7 +32,6 @@ function save_checks(e) {
       data.value.push(box.dataset.value);
     }
   });
-  console.log(data);
 
   const otherParams = {
     headers: {
@@ -45,6 +42,7 @@ function save_checks(e) {
     method: "POST"
   }
 
+  // TODO: Handle responses somehow. Maybe on 400/500 uncheck the box since it didn't save, and maybe show an error...
   fetch(url, otherParams)
     .then(response => console.log(response))
     .catch(error => console.log(error));

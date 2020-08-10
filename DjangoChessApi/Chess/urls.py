@@ -4,6 +4,7 @@ from . import views
 
 
 urlpatterns = [
+    path('', views.home, name="home"),
     path('configure/', views.create_configuration, name="configure"),
     path('configure/<int:game_type_id>/', views.configuration, name="configure-edit"),
     path('game/create/', views.create_game, name="create-game"),

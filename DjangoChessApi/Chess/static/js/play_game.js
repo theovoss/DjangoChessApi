@@ -23,7 +23,6 @@ squares.forEach(square => {
 
 // handle clicks
 function clickHandler(e) {
-  console.log(e);
   otherSelected = document.querySelectorAll('.selected');
   currentDestinations = document.querySelectorAll('.destination');
   if(otherSelected.length == 0) {
@@ -46,7 +45,6 @@ function clickHandler(e) {
     fetch(url, otherParams)
       .then(response => response.json())
       .then(data => {
-        console.log(data);
         data.forEach(location => {
           row = location[0];
           column = location[1];
@@ -89,7 +87,6 @@ function clickHandler(e) {
       square.classList.toggle('destination');
     })
   }
-  console.log(this);
 }
 
 squares.forEach(square => {

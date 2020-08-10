@@ -23,6 +23,11 @@ def current_datetime(request):
     return HttpResponse(html)
 
 
+def home(request):
+    game_types = GameType.objects.all()
+    return render(request, 'chess/home.html', {'game_types': game_types})
+
+
 def create_game(request):
     game_types = GameType.objects.all()
     return render(request, 'chess/create_game.html', {'game_types': game_types})

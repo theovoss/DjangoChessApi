@@ -1,0 +1,15 @@
+<div class='card'>
+  <div class='card-body'>
+    <div class='title'>
+      <h4 class="card-title">{{ game_type.name }}</h4>
+    </div>
+    <div>
+      <p>{{ game_type.description }}</p>
+    </div>
+    <div class="game-type-actions">
+      <button data-url={% url 'Chess:create-game-redirect' game_type.id %}>Play Game</button>
+      <button data-url={% url 'Chess:configure-edit' game_type.id %}>Edit Rules</button>
+      <button data-url="">Delete Rules</button>
+    </div>
+  </div>
+</div>
