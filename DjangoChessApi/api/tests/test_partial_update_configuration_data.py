@@ -69,8 +69,9 @@ class ConfigurationTests(APITestCase):
             'value': expected
         }
 
-        url = reverse('chess-configuration-detail', str(pk))
-        response = self.client.patch(url, data=data)
+        url = reverse('chess-configuration-checkmark', args=[game_type.id])
+        print('thor: Patching to url: ' + url)
+        response = self.client.post(url, data=data)
 
         self.assertEqual(response.status_code, 200)
 
@@ -95,8 +96,8 @@ class ConfigurationTests(APITestCase):
             'value': expected
         }
 
-        url = reverse('chess-configuration-detail', str(pk))
-        response = self.client.patch(url, data=data)
+        url = reverse('chess-configuration-checkmark', args=[game_type.id])
+        response = self.client.post(url, data=data)
 
         self.assertEqual(response.status_code, 200)
 
@@ -119,8 +120,8 @@ class ConfigurationTests(APITestCase):
             'value': expected
         }
 
-        url = reverse('chess-configuration-detail', str(pk))
-        response = self.client.patch(url, data=data)
+        url = reverse('chess-configuration-checkmark', args=[game_type.id])
+        response = self.client.post(url, data=data)
 
         self.assertEqual(response.status_code, 200)
 
@@ -143,8 +144,8 @@ class ConfigurationTests(APITestCase):
             'value': expected
         }
 
-        url = reverse('chess-configuration-detail', str(pk))
-        response = self.client.patch(url, data=data)
+        url = reverse('chess-configuration-checkmark', args=[game_type.id])
+        response = self.client.post(url, data=data)
 
         self.assertEqual(response.status_code, 200)
 
@@ -165,8 +166,8 @@ class ConfigurationTests(APITestCase):
             'value': ['thor', 'horizontal']
         }
 
-        url = reverse('chess-configuration-detail', str(pk))
-        response = self.client.patch(url, data=data)
+        url = reverse('chess-configuration-checkmark', args=[game_type.id])
+        response = self.client.post(url, data=data)
 
         self.assertEqual(response.status_code, 400)
 
@@ -185,8 +186,8 @@ class ConfigurationTests(APITestCase):
             'value': ['thor']
         }
 
-        url = reverse('chess-configuration-detail', str(pk))
-        response = self.client.patch(url, data=data)
+        url = reverse('chess-configuration-checkmark', args=[game_type.id])
+        response = self.client.post(url, data=data)
 
         self.assertEqual(response.status_code, 400)
 
@@ -205,8 +206,8 @@ class ConfigurationTests(APITestCase):
             'value': ['thor']
         }
 
-        url = reverse('chess-configuration-detail', str(pk))
-        response = self.client.patch(url, data=data)
+        url = reverse('chess-configuration-checkmark', args=[game_type.id])
+        response = self.client.post(url, data=data)
 
         self.assertEqual(response.status_code, 400)
 
@@ -225,8 +226,8 @@ class ConfigurationTests(APITestCase):
             'value': ['thor']
         }
 
-        url = reverse('chess-configuration-detail', str(pk))
-        response = self.client.patch(url, data=data)
+        url = reverse('chess-configuration-checkmark', args=[game_type.id])
+        response = self.client.post(url, data=data)
 
         self.assertEqual(response.status_code, 400)
 

@@ -22,6 +22,26 @@ class GameType(models.Model):
     def board(self):
         return self.rules['board']
 
+    def player_for_color(self, color):
+        for player in self.rules['players'].keys():
+            if player != 'current' and self.rules['players'][player]['color'] == color:
+                return player
+
+    def set_piece_location(self, player, piece_name, row, column):
+        self.clear_location(row, column)
+        self.rules['board'][player][piece_name].append({
+            'position': [row, column],
+            'move_count': 0
+        })
+
+    def clear_location(self, row, column):
+        for player in self.rules['board']:
+            for piece in self.rules['board'][player]:
+                for definition in self.rules['board'][player][piece]:
+                    if definition['position'] == [row, column]:
+                        self.rules['board'][player][piece].remove(definition)
+                        return
+
 class Game(models.Model):
     data = models.JSONField() # is the data used by the chess library
 

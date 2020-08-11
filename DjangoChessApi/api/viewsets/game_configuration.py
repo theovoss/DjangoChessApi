@@ -101,3 +101,37 @@ class GameTypeViewSet(viewsets.ModelViewSet):
             return Response(status=status.HTTP_400_BAD_REQUEST, data={"Invalid key ERROR": "{} is not in ['conditions', 'capture_actions', or 'directions'".format(key)})
 
         return Response(status=status.HTTP_200_OK)
+
+    """
+        input should be:
+        {
+            'piece': 'king',
+            'color': 'white',
+            'row': 1,
+            'column': 7
+        }
+    """
+    @action(methods=['POST'], detail=True, url_name="configure-board")
+    def configure_board(self, request, pk=None):
+        game_type = GameType.objects.get(pk=pk)
+
+        data = request.data
+
+        piece = data['piece']
+        color = data['color']
+        row = int(data['row'])
+        column = int(data['column'])
+
+        if color in ['black', 'white'] and \
+           piece in game_type.rule_definitions:
+        #    valid data.
+            player = game_type.player_for_color(color)
+            game_type.set_piece_location(player, piece, row, column)
+            game_type.save()
+        elif not piece and not color:
+            game_type.clear_location(row, column)
+            game_type.save()
+        else:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
+        return Response(status=status.HTTP_200_OK)

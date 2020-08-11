@@ -78,12 +78,14 @@ def configuration_board(request, game_type_id):
 
     black_pieces = get_pieces(game_type, "black")
     white_pieces = get_pieces(game_type, "white")
+    url = reverse('chess-configuration-configure-board', args=[game_type.id])
 
     context = {
         'form': form,
         'board': displayable_board,
         'black_pieces': black_pieces,
-        'white_pieces': white_pieces
+        'white_pieces': white_pieces,
+        'url': url
     }
     return render(request, 'chess/main/configure_board.html', context)
 
