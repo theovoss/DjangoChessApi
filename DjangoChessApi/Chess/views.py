@@ -81,6 +81,7 @@ def configuration_board(request, game_type_id):
     url = reverse('chess-configuration-configure-board', args=[game_type.id])
 
     context = {
+        'id': game_type.id,
         'form': form,
         'board': displayable_board,
         'black_pieces': black_pieces,

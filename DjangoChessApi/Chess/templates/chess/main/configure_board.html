@@ -8,6 +8,7 @@
 
 {% block body %}
   <h1>How should the game be set up?</h1>
+  {% include "chess/secondary/configuration_navbar.html" with id=id board_active=True %}
   <div class="configure-board">
     <div class='url' data-url={{ url }}></div>
     {% include "chess/secondary/board.html" with columns=8 rows=8 board=board %}
