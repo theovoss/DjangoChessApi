@@ -43,7 +43,14 @@ class GameType(models.Model):
                         return
 
 class Game(models.Model):
-    data = models.JSONField() # is the data used by the chess library
+    data = models.JSONField(default=get_standard_chess_pieces) # is the data used by the chess library
+
+    history = models.JSONField(null=True)
+    player1 = models.ForeignKey(User, null=True, on_delete=CASCADE, related_name='games_player1')
+    player2 = models.ForeignKey(User, null=True, on_delete=CASCADE, related_name='games_player2')
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     @property
     def rules(self):
@@ -60,10 +67,3 @@ class Game(models.Model):
     @property
     def turn_color(self):
         return self.data['players'][self.turn]['color']
-
-    history = models.JSONField(null=True)
-    player1 = models.ForeignKey(User, null=True, on_delete=CASCADE, related_name='games_player1')
-    player2 = models.ForeignKey(User, null=True, on_delete=CASCADE, related_name='games_player2')
-
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)

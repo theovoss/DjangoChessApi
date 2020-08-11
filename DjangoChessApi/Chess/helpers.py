@@ -46,6 +46,7 @@ def get_image(piece, color):
 def _make_frontend_key(position):
     return "{},{}".format(*position)
 
+
 def get_displayable_board(board):
     displayable = {}
 
