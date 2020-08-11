@@ -1,5 +1,7 @@
+{% extends 'chess/secondary/piece_card.html' %}
 {% load index %}
 
+{% block details %}
 <div class='moves'>
   {% for i in '0123'|make_list %}
     <div class="movement">
@@ -54,3 +56,4 @@
       </div>
   {% endfor %}
 </div>
+{% endblock %}

@@ -5,7 +5,7 @@ from rest_framework.reverse import reverse
 
 from .models import GameType, Game
 from .forms import GameTypeForm
-from .helpers import get_image, get_displayable_board
+from .helpers import get_image, get_displayable_board, get_pieces
 
 from chess.chess_configurations import *
 
@@ -60,10 +60,32 @@ def create_configuration(request):
         form = GameTypeForm(request.POST)
         if form.is_valid():
             game_type = form.save()
-            return HttpResponseRedirect(reverse('configure', game_type.id))
+            return HttpResponseRedirect(reverse('Chess:configure-edit', kwargs={'game_type_id': game_type.id}))
     else:
         form = GameTypeForm()
     return render(request, 'chess/main/create_configuration.html', {'form': form})
+
+def configuration_board(request, game_type_id):
+    game_type = GameType.objects.get(pk=game_type_id)
+    displayable_board = get_displayable_board(game_type.board)
+
+    if request.method == "POST":
+        form = GameTypeForm(request.POST, instance=game_type)
+        if form.is_valid():
+            game_type = form.save()
+    else:
+        form = GameTypeForm(instance=game_type)
+
+    black_pieces = get_pieces(game_type, "black")
+    white_pieces = get_pieces(game_type, "white")
+
+    context = {
+        'form': form,
+        'board': displayable_board,
+        'black_pieces': black_pieces,
+        'white_pieces': white_pieces
+    }
+    return render(request, 'chess/main/configure_board.html', context)
 
 
 def configuration(request, game_type_id):
@@ -79,15 +101,8 @@ def configuration(request, game_type_id):
     directions = get_movement_directions()
     movement_rules = get_movement_rules()
     capture_actions = get_capture_action_rules()
-    normal_chess_rules = get_standard_chess_pieces()
 
-    if game_type.rules:
-        pieces = game_type.rules['pieces']
-    else:
-        pieces = normal_chess_rules['pieces']
-
-    for piece in pieces:
-        pieces[piece]['image'] = get_image(piece, 'black')
+    pieces = get_pieces(game_type, "black")
 
     checkmark_url = reverse('chess-configuration-checkmark', args=[game_type.id])
 

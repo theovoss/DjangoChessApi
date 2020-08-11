@@ -9,7 +9,7 @@
     <div class="game-type-actions">
       <button data-url={% url 'Chess:create-game-redirect' game_type.id %}>Play Game</button>
       <button data-url={% url 'Chess:configure-edit' game_type.id %}>Edit Rules</button>
-      <button data-url="">Delete Rules</button>
+      <button data-url={% url 'chess-configuration-detail' game_type.id %} class="delete">Delete Rules</button>
     </div>
   </div>
 </div>

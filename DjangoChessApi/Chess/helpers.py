@@ -1,3 +1,7 @@
+from copy import deepcopy
+
+from chess.chess_configurations import get_standard_chess_pieces
+
 images = {
     'king': {
         'black': 'https://upload.wikimedia.org/wikipedia/commons/f/f0/Chess_kdt45.svg',
@@ -18,6 +22,20 @@ images = {
         'black': 'https://upload.wikimedia.org/wikipedia/commons/c/c7/Chess_pdt45.svg',
         'white': 'https://upload.wikimedia.org/wikipedia/commons/4/45/Chess_plt45.svg'}
 }
+
+
+def get_pieces(game_type, color):
+    normal_chess_rules = get_standard_chess_pieces()
+
+    if game_type.rules:
+        pieces = game_type.rules['pieces']
+    else:
+        pieces = normal_chess_rules['pieces']
+
+    for piece in pieces:
+        pieces[piece]['image'] = get_image(piece, color)
+
+    return deepcopy(pieces)
 
 
 def get_image(piece, color):

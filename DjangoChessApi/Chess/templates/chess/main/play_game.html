@@ -1,30 +1,16 @@
 {% extends 'chess/header.html' %}
 {% load static %}
-{% load get_item %}
 
 {% block head %}
-  <link rel="stylesheet" href="{% static 'css/play_game.css' %}">
+  <link rel="stylesheet" href="{% static 'css/board.css' %}">
 {% endblock %}
 
 {% block body %}
   <h1>Would you like to play a Game?</h1>
   <div class="destinations_url" data-url={{ destinations_url }}></div>
   <div class="move_url" data-url={{ move_url }}></div>
-  <div class="chess_board">
-    {% for row in '76543210' %}
-      <div class="row">
-        {% for column in '01234567' %}
-          <div class="square" data-row={{row}} data-column={{column}} id="{{row}},{{column}}">
-            {% with key=""|add:row|add:","|add:column %}
-              {% if board|get_item:key %}
-              <img src="{{ board|get_item:key }}">
-              {% endif %}
-            {% endwith %}
-          </div>
-        {% endfor %}
-      </div>
-    {% endfor %}
-  </div>
+  {% include "chess/secondary/board.html" with columns=8 rows=8 board=board %}
 
   <script src="{% static 'js/play_game.js' %}"></script>
+  <script src="{% static 'js/board.js' %}"></script>
 {% endblock %}

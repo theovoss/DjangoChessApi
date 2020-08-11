@@ -12,24 +12,18 @@
 
 {% block body %}
   <h1>Template loaded!!</h1>
-  <form action={% url 'Chess:configure-edit' id %} method="post">
-    {% csrf_token %}
-    {{ form }}
-    <input type="submit" value="Submit">
-</form>
+  <div class="d-flex flex-row justify-content-between align-items-center">
+    <form action={% url 'Chess:configure-edit' id %} method="post">
+      {% csrf_token %}
+      {{ form|crispy }}
+      <input type="submit" value="Submit">
+    </form>
+    <button data-url={% url 'chess-configuration-detail' id %} data-redirect_url={% url 'Chess:home' %} class="delete btn btn-danger btn-sm rounded-0 align-items-center" type="button" data-toggle="tooltip" data-placement="top" title="Delete"> <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Delete</button>
+  </div>
   <div class='pieces'>
     <div class="url" data-url={{ checkmark_url }}></div>
     {% for piece, data in pieces.items %}
-      <div class='card'>
-        <img class='card-img-top' src={{ data.image }} alt={{ piece }}>
-        <div class='card-body'>
-          <div class='title'>
-            <h4 class="card-title">{{ piece }}</h4>
-          </div>
-          {% include "chess/secondary/piece_configuration.html" with piece=piece data=data enums=enums %}
-
-        </div>
-      </div>
+      {% include "chess/secondary/piece_configuration.html" with piece=piece data=data enums=enums %}
     {% endfor %}
   </div>
 

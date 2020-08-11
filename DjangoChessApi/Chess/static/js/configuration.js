@@ -1,5 +1,17 @@
 let cards = [...document.querySelectorAll('.card')];
 let card_images = [...document.querySelectorAll('.card img')];
+let delete_button = document.querySelector('.delete')
+
+delete_button.onclick = () => {
+  const otherParams = {
+    method: "DELETE"
+  }
+
+  // TODO: Handle responses somehow. maybe show warning if 400/500
+  fetch(delete_button.dataset.url, otherParams)
+    .then(_ => window.location.href = delete_button.dataset.redirect_url)
+    .catch(error => console.log(error));
+}
 
 card_images.forEach((image) => {
   image.addEventListener('click', expand);

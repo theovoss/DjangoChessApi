@@ -1,0 +1,27 @@
+{% extends 'chess/header.html' %}
+{% load static %}
+
+{% block head %}
+  <link rel="stylesheet" href="{% static 'css/board.css' %}">
+  <link rel="stylesheet" href="{% static 'css/configure_board.css' %}">
+{% endblock %}
+
+{% block body %}
+  <h1>How should the game be set up?</h1>
+  <div class="configure-board">
+    {% include "chess/secondary/board.html" with columns=8 rows=8 board=board %}
+
+    <div class='pieces black'>
+      {% for piece, data in black_pieces.items %}
+        {% include "chess/secondary/piece_card.html" with piece=piece data=data enums=enums color="black" %}
+      {% endfor %}
+    </div>
+    <div class="pieces white">
+      {% for piece, data in white_pieces.items %}
+        {% include "chess/secondary/piece_card.html" with piece=piece data=data enums=enums color="white" %}
+      {% endfor %}
+    </div>
+  </div>
+  <script src="{% static 'js/board.js' %}"></script>
+  <script src="{% static 'js/configure_board.js' %}"></script>
+{% endblock %}

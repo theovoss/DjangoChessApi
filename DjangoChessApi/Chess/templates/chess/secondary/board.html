@@ -1,0 +1,19 @@
+{% load get_item %}
+{% load times %}
+{% load times_reverse %}
+
+<div class="chess_board">
+  {% for row in 8|times_reverse %}
+    <div class="row">
+      {% for column in 8|times %}
+        <div class="square" data-row={{row}} data-column={{column}} id="{{row}},{{column}}">
+          {% with key=""|add:row|add:","|add:column %}
+            {% if board|get_item:key %}
+              <img src="{{ board|get_item:key }}">
+            {% endif %}
+          {% endwith %}
+        </div>
+      {% endfor %}
+    </div>
+  {% endfor %}
+</div>

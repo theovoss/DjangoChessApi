@@ -1,0 +1,11 @@
+<div data-piece={{ piece }} data-color={{ color }} data-image={{ data.image }} class='card'>
+  <img class='card-img-top' src={{ data.image }} alt={{ piece }}>
+  <div class='card-body'>
+    <div class='title'>
+      <h4 class="card-title">{{ piece }}</h4>
+    </div>
+    {% block details %}
+
+    {% endblock %}
+  </div>
+</div>

@@ -14,6 +14,14 @@ class GameType(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    @property
+    def rule_definitions(self):
+        return self.rules['pieces']
+
+    @property
+    def board(self):
+        return self.rules['board']
+
 class Game(models.Model):
     data = models.JSONField() # is the data used by the chess library
 

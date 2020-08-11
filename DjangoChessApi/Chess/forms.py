@@ -1,10 +1,10 @@
-from django.forms import ModelForm
+from django.forms import ModelForm, Textarea
 from .models import GameType, Game
 
 class GameTypeForm(ModelForm):
     class Meta:
         model = GameType
         fields = ['name', 'description']
-
-# class CreateGameForm(Form):
-#     Form.
+        widgets = {
+          'description': Textarea(attrs={'rows':2, 'cols':40}),
+        }
