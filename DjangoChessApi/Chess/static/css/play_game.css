@@ -1,0 +1,27 @@
+.game {
+  display: flex;
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+}
+
+.current {
+  border: 1px solid darkgreen;
+  background-color: lightgreen;
+}
+
+.history {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.history h3 {
+  width: 50%;
+}
+
+.history p {
+  width: 50%;
+}

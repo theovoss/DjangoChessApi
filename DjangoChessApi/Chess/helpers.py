@@ -58,3 +58,16 @@ def get_displayable_board(board):
                 image = get_image(piece, color)
                 displayable[_make_frontend_key(position)] = image
     return displayable
+
+
+def get_displayable_history_name(_start, _end):
+    start = _convert_to_external(_start)
+    end = _convert_to_external(_end)
+    return "{} -> {}".format(start, end)
+
+
+def _convert_to_external(location):
+    alphabet = "abcdefghijklmnopqrstuvwxyz"
+    col = alphabet[location[1]]
+    row = location[0] + 1
+    return col + str(row)

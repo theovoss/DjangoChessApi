@@ -22,6 +22,15 @@ class GameType(models.Model):
     def board(self):
         return self.rules['board']
 
+    def get_rules(self):
+        rules = self.rules
+        rules['rule_summary'] = {
+            'name': self.name,
+            'description': self.description
+        }
+        return rules
+
+
     def player_for_color(self, color):
         for player in self.rules['players'].keys():
             if player != 'current' and self.rules['players'][player]['color'] == color:
@@ -67,3 +76,7 @@ class Game(models.Model):
     @property
     def turn_color(self):
         return self.data['players'][self.turn]['color']
+
+    @property
+    def rule_summary(self):
+        return self.data.get('rule_summary')

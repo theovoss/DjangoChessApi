@@ -45,8 +45,6 @@ def test_get_displayable_board():
 
     actual = get_displayable_board(game_type.board)
 
-    print("Keys are")
-    print(actual.keys())
     for row in "0167":
         for column in range(8):
             key = "{},{}".format(row, column)

@@ -22,3 +22,13 @@ class TestGame():
     def test_color(self):
         game = Game()
         assert game.turn_color == "white"
+
+    def test_rule_summary_no_summary(self):
+        game = Game()
+        assert None == game.rule_summary
+
+    def test_rule_summary(self):
+        game = Game()
+        summary = {'name': "want some rule?"}
+        game.data['rule_summary'] = summary
+        assert summary == game.rule_summary

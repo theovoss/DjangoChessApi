@@ -60,3 +60,9 @@ class TestGameType():
 
         assert(testing_position not in gt.rules['board']['Player 1']['pawn'])
         assert(testing_position in gt.rules['board']['Player 1']['knight'])
+
+    def test_get_rules_adds_name_and_description(self):
+        gt = GameType(name="hello", description="goodbye")
+        rules = gt.get_rules()
+
+        assert rules['rule_summary'] == {'name': 'hello', 'description': 'goodbye'}

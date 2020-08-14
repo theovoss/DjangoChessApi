@@ -70,7 +70,6 @@ class ConfigurationTests(APITestCase):
         }
 
         url = reverse('chess-configuration-checkmark', args=[game_type.id])
-        print('thor: Patching to url: ' + url)
         response = self.client.post(url, data=data)
 
         self.assertEqual(response.status_code, 200)
