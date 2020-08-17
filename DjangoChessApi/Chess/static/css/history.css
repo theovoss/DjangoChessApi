@@ -8,6 +8,7 @@
   overflow: scroll;
   display: flex;
   flex-wrap: wrap;
+  align-content: flex-start;
 }
 
 .history h3 {
