@@ -10,7 +10,6 @@ PROJECT_ROOT = os.path.dirname(CONFIG_ROOT)
 
 INSTALLED_APPS = [
     'grappelli',
-
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -19,19 +18,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.staticfiles',
-
     'crispy_forms',
-
     'allauth',
     'allauth.account',
     'corsheaders',
     'rest_framework',
     'drf_yasg',
-
     'DjangoChessApi.api',
     'DjangoChessApi.core',
     'DjangoChessApi.Chess',
-
 ]
 
 MIDDLEWARE = [
@@ -69,11 +64,7 @@ WSGI_APPLICATION = 'config.wsgi.application'
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
-    'formatters': {
-        'simple': {
-            'format': '%(levelname)s: %(message)s'
-        },
-    },
+    'formatters': {'simple': {'format': '%(levelname)s: %(message)s'},},
     'handlers': {
         'console': {
             'level': 'INFO',
@@ -82,15 +73,9 @@ LOGGING = {
         },
     },
     'loggers': {
-        'django': {
-            'handlers': ['console'],
-            'level': 'INFO',
-        },
-        'DjangoChessApi': {
-            'handlers': ['console'],
-            'level': 'DEBUG',
-        },
-    }
+        'django': {'handlers': ['console'], 'level': 'INFO',},
+        'DjangoChessApi': {'handlers': ['console'], 'level': 'DEBUG',},
+    },
 }
 
 SITE_ID = 1

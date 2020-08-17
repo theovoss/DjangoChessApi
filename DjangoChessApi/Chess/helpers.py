@@ -2,25 +2,32 @@ from copy import deepcopy
 
 from chess.chess_configurations import get_standard_chess_pieces
 
+
 images = {
     'king': {
         'black': 'https://upload.wikimedia.org/wikipedia/commons/f/f0/Chess_kdt45.svg',
-        'white': 'https://upload.wikimedia.org/wikipedia/commons/4/42/Chess_klt45.svg'},
+        'white': 'https://upload.wikimedia.org/wikipedia/commons/4/42/Chess_klt45.svg',
+    },
     'queen': {
         'black': 'https://upload.wikimedia.org/wikipedia/commons/4/47/Chess_qdt45.svg',
-        'white': 'https://upload.wikimedia.org/wikipedia/commons/1/15/Chess_qlt45.svg'},
+        'white': 'https://upload.wikimedia.org/wikipedia/commons/1/15/Chess_qlt45.svg',
+    },
     'knight': {
         'black': 'https://upload.wikimedia.org/wikipedia/commons/e/ef/Chess_ndt45.svg',
-        'white': 'https://upload.wikimedia.org/wikipedia/commons/7/70/Chess_nlt45.svg'},
+        'white': 'https://upload.wikimedia.org/wikipedia/commons/7/70/Chess_nlt45.svg',
+    },
     'bishop': {
         'black': 'https://upload.wikimedia.org/wikipedia/commons/9/98/Chess_bdt45.svg',
-        'white': 'https://upload.wikimedia.org/wikipedia/commons/b/b1/Chess_blt45.svg'},
+        'white': 'https://upload.wikimedia.org/wikipedia/commons/b/b1/Chess_blt45.svg',
+    },
     'rook': {
         'black': 'https://upload.wikimedia.org/wikipedia/commons/f/ff/Chess_rdt45.svg',
-        'white': 'https://upload.wikimedia.org/wikipedia/commons/7/72/Chess_rlt45.svg'},
+        'white': 'https://upload.wikimedia.org/wikipedia/commons/7/72/Chess_rlt45.svg',
+    },
     'pawn': {
         'black': 'https://upload.wikimedia.org/wikipedia/commons/c/c7/Chess_pdt45.svg',
-        'white': 'https://upload.wikimedia.org/wikipedia/commons/4/45/Chess_plt45.svg'}
+        'white': 'https://upload.wikimedia.org/wikipedia/commons/4/45/Chess_plt45.svg',
+    },
 }
 
 
@@ -50,10 +57,10 @@ def _make_frontend_key(position):
 def get_displayable_board(board):
     displayable = {}
 
-    for player in board: # dict
-        for piece in board[player]: # dict
+    for player in board:  # dict
+        for piece in board[player]:  # dict
             color = 'white' if '1' in player else 'black'
-            for data in board[player][piece]: # List of dicts
+            for data in board[player][piece]:  # List of dicts
                 position = data['position']
                 image = get_image(piece, color)
                 displayable[_make_frontend_key(position)] = image

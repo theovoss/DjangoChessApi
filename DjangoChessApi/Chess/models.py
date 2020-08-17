@@ -1,10 +1,10 @@
-from django.db import models
 from django.contrib.auth.models import User
-from django.db.models.deletion import SET_NULL, CASCADE
-
+from django.db import models
+from django.db.models.deletion import CASCADE, SET_NULL
 from django.utils.translation import gettext_lazy as _
 
 from chess.chess_configurations import get_standard_chess_pieces
+
 
 class GameType(models.Model):
     name = models.CharField(max_length=30)
@@ -32,10 +32,9 @@ class GameType(models.Model):
 
     def set_piece_location(self, player, piece_name, row, column):
         self.clear_location(row, column)
-        self.rules['board'][player][piece_name].append({
-            'position': [row, column],
-            'move_count': 0
-        })
+        self.rules['board'][player][piece_name].append(
+            {'position': [row, column], 'move_count': 0}
+        )
 
     def clear_location(self, row, column):
         for player in self.rules['board']:
@@ -45,15 +44,22 @@ class GameType(models.Model):
                         self.rules['board'][player][piece].remove(definition)
                         return
 
+
 class Game(models.Model):
-    data = models.JSONField(default=get_standard_chess_pieces) # is the data used by the chess library
+    data = models.JSONField(
+        default=get_standard_chess_pieces
+    )  # is the data used by the chess library
 
     rule_name = models.CharField(max_length=30)
     rule_description = models.TextField()
 
     history = models.JSONField(null=True)
-    player1 = models.ForeignKey(User, null=True, on_delete=CASCADE, related_name='games_player1')
-    player2 = models.ForeignKey(User, null=True, on_delete=CASCADE, related_name='games_player2')
+    player1 = models.ForeignKey(
+        User, null=True, on_delete=CASCADE, related_name='games_player1'
+    )
+    player2 = models.ForeignKey(
+        User, null=True, on_delete=CASCADE, related_name='games_player2'
+    )
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -76,7 +82,4 @@ class Game(models.Model):
 
     @property
     def rule_summary(self):
-        return {
-            'name': self.rule_name,
-            'description': self.rule_description
-        }
+        return {'name': self.rule_name, 'description': self.rule_description}

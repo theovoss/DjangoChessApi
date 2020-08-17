@@ -1,12 +1,13 @@
 import datetime
+
 import pytest
-
-from rest_framework.reverse import reverse
-
 from rest_framework import status
+from rest_framework.reverse import reverse
 from rest_framework.test import APITestCase
+
 # from myproject.apps.core.models import Account
 from DjangoChessApi.Chess.models import GameType
+
 
 @pytest.mark.django_db
 class ConfigurationTests(APITestCase):
@@ -37,11 +38,10 @@ class ConfigurationTests(APITestCase):
         response = self.client.get(url)
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertGreater(len(response.data), 3)
+        self.assertGreater(len(response.data), 2)
         self.assertContains(response, "explode")
-        self.assertContains(response, "replace")
+        self.assertContains(response, "captures_destination")
         self.assertContains(response, "becomes_piece")
-        self.assertContains(response, "increment_move_count")
 
     def test_get_standard_chess_pieces(self):
         url = reverse('standard-chess-list')
@@ -62,12 +62,7 @@ class ConfigurationTests(APITestCase):
 
         key = 'directions'
         expected = ['vertical', 'horizontal']
-        data = {
-            'piece': 'king',
-            'index': '0',
-            'key': key,
-            'value': expected
-        }
+        data = {'piece': 'king', 'index': '0', 'key': key, 'value': expected}
 
         url = reverse('chess-configuration-checkmark', args=[game_type.id])
         response = self.client.post(url, data=data)
@@ -88,12 +83,7 @@ class ConfigurationTests(APITestCase):
 
         key = 'directions'
         expected = ['vertical', 'horizontal']
-        data = {
-            'piece': 'king',
-            'index': '0',
-            'key': key,
-            'value': expected
-        }
+        data = {'piece': 'king', 'index': '0', 'key': key, 'value': expected}
 
         url = reverse('chess-configuration-checkmark', args=[game_type.id])
         response = self.client.post(url, data=data)
@@ -112,12 +102,7 @@ class ConfigurationTests(APITestCase):
 
         key = 'conditions'
         expected = ['doesnt_land_on_piece', 'directional', 'cant_jump_pieces']
-        data = {
-            'piece': 'king',
-            'index': '0',
-            'key': key,
-            'value': expected
-        }
+        data = {'piece': 'king', 'index': '0', 'key': key, 'value': expected}
 
         url = reverse('chess-configuration-checkmark', args=[game_type.id])
         response = self.client.post(url, data=data)
@@ -135,13 +120,8 @@ class ConfigurationTests(APITestCase):
         pk = game_type.id
 
         key = 'capture_actions'
-        expected = ['becomes_piece', 'explode', 'replace']
-        data = {
-            'piece': 'king',
-            'index': '0',
-            'key': key,
-            'value': expected
-        }
+        expected = ['becomes_piece', 'explode', 'captures_destination']
+        data = {'piece': 'king', 'index': '0', 'key': key, 'value': expected}
 
         url = reverse('chess-configuration-checkmark', args=[game_type.id])
         response = self.client.post(url, data=data)
@@ -162,7 +142,7 @@ class ConfigurationTests(APITestCase):
             'piece': 'king',
             'index': '0',
             'key': 'directions',
-            'value': ['thor', 'horizontal']
+            'value': ['thor', 'horizontal'],
         }
 
         url = reverse('chess-configuration-checkmark', args=[game_type.id])
@@ -178,12 +158,7 @@ class ConfigurationTests(APITestCase):
         game_type.save()
         pk = game_type.id
 
-        data = {
-            'piece': 'king',
-            'index': '0',
-            'key': 'conditions',
-            'value': ['thor']
-        }
+        data = {'piece': 'king', 'index': '0', 'key': 'conditions', 'value': ['thor']}
 
         url = reverse('chess-configuration-checkmark', args=[game_type.id])
         response = self.client.post(url, data=data)
@@ -202,7 +177,7 @@ class ConfigurationTests(APITestCase):
             'piece': 'king',
             'index': '0',
             'key': 'capture_actions',
-            'value': ['thor']
+            'value': ['thor'],
         }
 
         url = reverse('chess-configuration-checkmark', args=[game_type.id])
@@ -222,7 +197,7 @@ class ConfigurationTests(APITestCase):
             'piece': 'king',
             'index': '0',
             'key': 'unsupported_key',
-            'value': ['thor']
+            'value': ['thor'],
         }
 
         url = reverse('chess-configuration-checkmark', args=[game_type.id])

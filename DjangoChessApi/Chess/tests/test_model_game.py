@@ -2,10 +2,18 @@ import pytest
 
 from ..models import Game
 
-class TestGame():
+
+class TestGame:
     def test_rules(self):
         game = Game()
-        assert list(game.rules.keys()) == ['pawn', 'rook', 'knight', 'bishop', 'queen', 'king']
+        assert list(game.rules.keys()) == [
+            'pawn',
+            'rook',
+            'knight',
+            'bishop',
+            'queen',
+            'king',
+        ]
 
     def test_board(self):
         game = Game()
@@ -23,12 +31,13 @@ class TestGame():
         game = Game()
         assert game.turn_color == "white"
 
-    def test_rule_summary_no_summary(self):
-        game = Game()
-        assert None == game.rule_summary
-
     def test_rule_summary(self):
-        game = Game()
-        summary = {'name': "want some rule?"}
-        game.data['rule_summary'] = summary
+        game = Game(
+            rule_name="want some rules?",
+            rule_description="hey! this is descriptive! I swear!",
+        )
+        summary = {
+            'name': 'want some rules?',
+            'description': 'hey! this is descriptive! I swear!',
+        }
         assert summary == game.rule_summary

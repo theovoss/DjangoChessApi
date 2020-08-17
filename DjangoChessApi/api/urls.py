@@ -1,18 +1,20 @@
-from django.conf.urls import include, url
 from django.conf import settings
+from django.conf.urls import include, url
 
-from rest_framework import routers
-from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
+from drf_yasg.views import get_schema_view
+from rest_framework import routers
 
-from .viewsets.game_configuration import MovementViewSet, \
-                                         DirectionViewSet, \
-                                         CaptureActionViewSet, \
-                                         GameTypeViewSet, \
-                                         StandardChessPiecesViewSet
-
+from .viewsets.game_configuration import (
+    CaptureActionViewSet,
+    DirectionViewSet,
+    GameTypeViewSet,
+    MovementViewSet,
+    StandardChessPiecesViewSet,
+)
 from .viewsets.game_play import MoveViewSet
 from .viewsets.history import HistoryViewSet
+
 
 # Root
 
@@ -44,8 +46,6 @@ schema_view = get_schema_view(
 
 urlpatterns = [
     url('^', include(root.urls)),
-
     url('^client/', include('rest_framework.urls')),
-
     url('^docs/', schema_view.with_ui('swagger')),
 ]

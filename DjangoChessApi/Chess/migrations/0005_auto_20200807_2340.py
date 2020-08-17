@@ -11,16 +11,8 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.RenameField(
-            model_name='game',
-            old_name='current_board',
-            new_name='data',
+            model_name='game', old_name='current_board', new_name='data',
         ),
-        migrations.RemoveField(
-            model_name='game',
-            name='rules',
-        ),
-        migrations.RemoveField(
-            model_name='game',
-            name='turn',
-        ),
+        migrations.RemoveField(model_name='game', name='rules',),
+        migrations.RemoveField(model_name='game', name='turn',),
     ]

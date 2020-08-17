@@ -1,27 +1,34 @@
+import datetime
+
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 
+import log
+from chess.chess import Chess
+from chess.chess_configurations import (
+    get_capture_action_rules,
+    get_direction_shorthands,
+    get_movement_directions,
+    get_movement_rules,
+)
 from rest_framework.reverse import reverse
 
-from chess.chess import Chess
-
-from .models import GameType, Game
 from .forms import GameTypeForm
-from .helpers import get_image, get_displayable_board, get_pieces, get_displayable_history_name
-
-from chess.chess_configurations import *
-
-import datetime
-
-import log
+from .helpers import (
+    get_displayable_board,
+    get_displayable_history_name,
+    get_image,
+    get_pieces,
+)
+from .models import Game, GameType
 
 
 def current_datetime(request):
     log.debug(request)
     now = datetime.datetime.now()
-    html = ("<html><body>Welcome to DjangoChessApi."
-            "<br>"
-            "It is now %s.</body></html>") % now
+    html = (
+        "<html><body>Welcome to DjangoChessApi." "<br>" "It is now %s.</body></html>"
+    ) % now
     return HttpResponse(html)
 
 
@@ -37,7 +44,11 @@ def create_game(request):
 
 def create_game_redirect(request, game_type_id):
     game_type = GameType.objects.get(pk=game_type_id)
-    new_game = Game(data=game_type.get_rules(), rule_name=game_type.name, rule_description=game_type.description)
+    new_game = Game(
+        data=game_type.get_rules(),
+        rule_name=game_type.name,
+        rule_description=game_type.description,
+    )
     new_game.save()
     url = reverse('Chess:play-game', kwargs={'game_id': new_game.id})
     return HttpResponseRedirect(url)
@@ -87,7 +98,7 @@ def play_game(request, game_id):
         'rule_summary': game.rule_summary,
         'turn': game.turn_color,
         'history': history,
-        'id': game.id
+        'id': game.id,
     }
     return render(request, 'chess/main/play_game.html', context)
 
@@ -97,10 +108,13 @@ def create_configuration(request):
         form = GameTypeForm(request.POST)
         if form.is_valid():
             game_type = form.save()
-            return HttpResponseRedirect(reverse('Chess:configure-edit', kwargs={'game_type_id': game_type.id}))
+            return HttpResponseRedirect(
+                reverse('Chess:configure-edit', kwargs={'game_type_id': game_type.id})
+            )
     else:
         form = GameTypeForm()
     return render(request, 'chess/main/create_configuration.html', {'form': form})
+
 
 def configuration_board(request, game_type_id):
     game_type = GameType.objects.get(pk=game_type_id)
@@ -123,7 +137,7 @@ def configuration_board(request, game_type_id):
         'board': displayable_board,
         'black_pieces': black_pieces,
         'white_pieces': white_pieces,
-        'url': url
+        'url': url,
     }
     return render(request, 'chess/main/configure_board.html', context)
 
@@ -153,8 +167,8 @@ def configuration(request, game_type_id):
         'enums': {
             'directions': directions,
             'movements': movement_rules,
-            'capture_actions': capture_actions
+            'capture_actions': capture_actions,
         },
-        'form': form
+        'form': form,
     }
     return render(request, 'chess/main/configuration.html', context)
