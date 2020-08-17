@@ -23,13 +23,7 @@ class GameType(models.Model):
         return self.rules['board']
 
     def get_rules(self):
-        rules = self.rules
-        rules['rule_summary'] = {
-            'name': self.name,
-            'description': self.description
-        }
-        return rules
-
+        return self.rules
 
     def player_for_color(self, color):
         for player in self.rules['players'].keys():
@@ -53,6 +47,9 @@ class GameType(models.Model):
 
 class Game(models.Model):
     data = models.JSONField(default=get_standard_chess_pieces) # is the data used by the chess library
+
+    rule_name = models.CharField(max_length=30)
+    rule_description = models.TextField()
 
     history = models.JSONField(null=True)
     player1 = models.ForeignKey(User, null=True, on_delete=CASCADE, related_name='games_player1')
@@ -79,4 +76,7 @@ class Game(models.Model):
 
     @property
     def rule_summary(self):
-        return self.data.get('rule_summary')
+        return {
+            'name': self.rule_name,
+            'description': self.rule_description
+        }

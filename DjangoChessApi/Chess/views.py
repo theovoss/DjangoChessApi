@@ -37,7 +37,7 @@ def create_game(request):
 
 def create_game_redirect(request, game_type_id):
     game_type = GameType.objects.get(pk=game_type_id)
-    new_game = Game(data=game_type.get_rules())
+    new_game = Game(data=game_type.get_rules(), rule_name=game_type.name, rule_description=game_type.description)
     new_game.save()
     url = reverse('Chess:play-game', kwargs={'game_id': new_game.id})
     return HttpResponseRedirect(url)
