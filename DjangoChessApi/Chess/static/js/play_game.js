@@ -1,7 +1,9 @@
-squares = document.querySelectorAll(".history_url");
+squares = document.querySelectorAll(".square");
 
+console.log("Squares have length of");
+console.log(squares.length)
 // handle clicks
-function clickHandler(e) {
+function gameClickHandler(e) {
   otherSelected = document.querySelectorAll('.selected');
   currentDestinations = document.querySelectorAll('.destination');
   if(otherSelected.length == 0) {
@@ -69,5 +71,6 @@ function clickHandler(e) {
 }
 
 squares.forEach(square => {
-  square.addEventListener('click', clickHandler);
+  console.log("Attaching to squares");
+  square.addEventListener('click', gameClickHandler);
 })

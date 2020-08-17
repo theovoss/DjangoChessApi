@@ -1,5 +1,5 @@
 
-function clickHandler(e) {
+function historyClickHandler(e) {
   url = this.dataset.url;
   console.log("inner url");
   console.log(url);
@@ -14,5 +14,8 @@ function clickHandler(e) {
 history_links = document.querySelectorAll(".history_action");
 
 history_links.forEach(link => {
-  link.addEventListener('click', clickHandler);
-})
+  link.addEventListener('click', historyClickHandler);
+});
+
+let history = document.querySelector('.history-content');
+history.scrollTop = 99999999;
