@@ -11,9 +11,6 @@ from DjangoChessApi.Chess.models import Game
 
 
 class MoveViewSet(viewsets.ViewSet):
-    def list(self, request, pk=None):
-        return Response("Hey, gotta return somethin")
-
     @action(methods=['POST'], detail=True, url_name="destinations")
     def get_destinations(self, request, pk=None):
         game = Game.objects.get(pk=pk)

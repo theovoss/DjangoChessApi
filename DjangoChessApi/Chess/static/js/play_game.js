@@ -1,4 +1,4 @@
-squares = document.querySelectorAll(".square");
+squares = document.querySelectorAll(".history_url");
 
 // handle clicks
 function clickHandler(e) {

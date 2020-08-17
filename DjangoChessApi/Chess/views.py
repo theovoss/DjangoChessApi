@@ -86,7 +86,8 @@ def play_game(request, game_id):
         'move_url': move_url,
         'rule_summary': game.rule_summary,
         'turn': game.turn_color,
-        'history': history
+        'history': history,
+        'id': game.id
     }
     return render(request, 'chess/main/play_game.html', context)
 

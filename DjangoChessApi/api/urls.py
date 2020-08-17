@@ -12,6 +12,7 @@ from .viewsets.game_configuration import MovementViewSet, \
                                          StandardChessPiecesViewSet
 
 from .viewsets.game_play import MoveViewSet
+from .viewsets.history import HistoryViewSet
 
 # Root
 
@@ -26,6 +27,7 @@ root.register(r'capture-actions', CaptureActionViewSet, basename="capture-action
 root.register(r'standard-chess', StandardChessPiecesViewSet, basename="standard-chess")
 root.register(r'chess-configuration', GameTypeViewSet, basename="chess-configuration")
 root.register(r'move', MoveViewSet, basename="move")
+root.register(r'history', HistoryViewSet, basename="history")
 
 # root.register(...)
 
