@@ -9,20 +9,20 @@ from DjangoChessApi.Chess.templatetags.times_reverse import times_reverse
 class TemplateTagTest(SimpleTestCase):
     def test_get_item(self):
         actual = get_item({'title': 'Hey There!'}, 'title')
-        assert actual == 'Hey There!'
+        self.assertEqual(actual, 'Hey There!')
 
     def test_index(self):
         a = ['a', 'b', 'c', 'd']
-        assert index(a, 2) == 'c'
+        self.assertEqual(index(a, 2), 'c')
 
     def test_index_outside_range(self):
         a = ['a', 'b', 'c', 'd']
-        assert index(a, 20) == None
+        self.assertIsNone(index(a, 20))
 
     def test_times(self):
         actual = times(8)
-        assert actual == '01234567'
+        self.assertEqual(actual, '01234567')
 
     def test_times_reverse(self):
         actual = times_reverse(8)
-        assert actual == '76543210'
+        self.assertEqual(actual, '76543210')

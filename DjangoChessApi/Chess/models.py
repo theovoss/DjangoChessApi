@@ -1,7 +1,9 @@
+# pylint: disable=E1136
+# disabling E1136 so pylint doesn't yell about indexing json fields
+
 from django.contrib.auth.models import User
 from django.db import models
 from django.db.models.deletion import CASCADE, SET_NULL
-from django.utils.translation import gettext_lazy as _
 
 from chess.chess_configurations import get_standard_chess_pieces
 
@@ -29,6 +31,7 @@ class GameType(models.Model):
         for player in self.rules['players'].keys():
             if player != 'current' and self.rules['players'][player]['color'] == color:
                 return player
+        return None
 
     def set_piece_location(self, player, piece_name, row, column):
         self.clear_location(row, column)

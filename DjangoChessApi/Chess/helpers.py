@@ -48,6 +48,7 @@ def get_pieces(game_type, color):
 def get_image(piece, color):
     if piece in images and color in images[piece]:
         return images[piece][color]
+    return None
 
 
 def _make_frontend_key(position):

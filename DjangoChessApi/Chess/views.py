@@ -7,7 +7,6 @@ import log
 from chess.chess import Chess
 from chess.chess_configurations import (
     get_capture_action_rules,
-    get_direction_shorthands,
     get_movement_directions,
     get_movement_rules,
 )
@@ -42,7 +41,7 @@ def create_game(request):
     return render(request, 'chess/main/create_game.html', {'game_types': game_types})
 
 
-def create_game_redirect(request, game_type_id):
+def create_game_redirect(_, game_type_id):
     game_type = GameType.objects.get(pk=game_type_id)
     new_game = Game(
         data=game_type.get_rules(),
@@ -61,9 +60,7 @@ def _get_displayable_history(game):
     internal_history = chess._board._history._history
     index = chess._board._history._index
     for num, record in enumerate(internal_history):
-        start = record['start']
-        end = record['end']
-        displayable_name = get_displayable_history_name(start, end)
+        displayable_name = get_displayable_history_name(record['start'], record['end'])
 
         image = ""
         class_name = ""

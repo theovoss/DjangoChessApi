@@ -5,5 +5,5 @@ register = template.Library()
 
 
 @register.filter
-def times(max):
-    return "".join([str(x) for x in range(int(max))])
+def times(stop):
+    return "".join([str(x) for x in range(int(stop))])

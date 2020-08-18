@@ -1,35 +1,31 @@
-import pytest
+from django.test import TestCase
 
 from ..models import Game
 
 
-class TestGame:
+class TestGame(TestCase):
     def test_rules(self):
         game = Game()
-        assert list(game.rules.keys()) == [
-            'pawn',
-            'rook',
-            'knight',
-            'bishop',
-            'queen',
-            'king',
-        ]
+        self.assertEqual(
+            list(game.rules.keys()),
+            ['pawn', 'rook', 'knight', 'bishop', 'queen', 'king',],
+        )
 
     def test_board(self):
         game = Game()
         pieces = ['pawn', 'knight', 'rook', 'bishop', 'king', 'queen']
         board = game.board
-        assert list(board.keys()) == ['Player 1', 'Player 2']
-        assert list(board['Player 1'].keys()) == pieces
-        assert list(board['Player 2'].keys()) == pieces
+        self.assertEqual(list(board.keys()), ['Player 1', 'Player 2'])
+        self.assertEqual(list(board['Player 1'].keys()), pieces)
+        self.assertEqual(list(board['Player 2'].keys()), pieces)
 
     def test_turn(self):
         game = Game()
-        assert game.turn == "Player 1"
+        self.assertEqual(game.turn, "Player 1")
 
     def test_color(self):
         game = Game()
-        assert game.turn_color == "white"
+        self.assertEqual(game.turn_color, "white")
 
     def test_rule_summary(self):
         game = Game(
@@ -40,4 +36,4 @@ class TestGame:
             'name': 'want some rules?',
             'description': 'hey! this is descriptive! I swear!',
         }
-        assert summary == game.rule_summary
+        self.assertEqual(summary, game.rule_summary)

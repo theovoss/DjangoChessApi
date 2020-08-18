@@ -1,6 +1,6 @@
 from django.forms import ModelForm, Textarea
 
-from .models import Game, GameType
+from .models import GameType
 
 
 class GameTypeForm(ModelForm):

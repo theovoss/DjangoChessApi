@@ -5,5 +5,5 @@ register = template.Library()
 
 
 @register.filter
-def times_reverse(max):
-    return "".join([str(x) for x in range(int(max) - 1, -1, -1)])
+def times_reverse(stop):
+    return "".join([str(x) for x in range(int(stop) - 1, -1, -1)])
