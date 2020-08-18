@@ -1,7 +1,7 @@
 asgiref==3.2.10
 certifi==2020.6.20
 chardet==3.0.4
--e git+https://github.com/theovoss/Chess@aa1e7ca7f8e00625177303bd6042d9defe673f64#egg=chess
+-e git+https://github.com/theovoss/Chess@3e85b8428fd715ba2aaeb836f1b3c15be9f9b457#egg=chess
 coreapi==2.3.3
 coreschema==0.0.4
 defusedxml==0.6.0

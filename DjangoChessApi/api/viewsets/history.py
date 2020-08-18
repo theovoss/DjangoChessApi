@@ -13,7 +13,7 @@ class HistoryViewSet(viewsets.ViewSet):
 
         chess = Chess(game.data)
 
-        chess._board.previous()
+        chess.previous()
 
         # update db with new board
         game.data = chess.export()
@@ -26,7 +26,7 @@ class HistoryViewSet(viewsets.ViewSet):
 
         chess = Chess(game.data)
 
-        chess._board.next()
+        chess.next()
 
         # update db with new board
         game.data = chess.export()
@@ -39,7 +39,7 @@ class HistoryViewSet(viewsets.ViewSet):
 
         chess = Chess(game.data)
 
-        chess._board.first()
+        chess.first()
 
         # update db with new board
         # TODO: how to navigate history without changing current state?

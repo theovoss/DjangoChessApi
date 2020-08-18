@@ -57,14 +57,13 @@ def _get_displayable_history(game):
     chess = Chess(game.data)
     history = []
     # TODO: modify chess to expose these things we need.
-    internal_history = chess._board._history._history
-    index = chess._board._history._index
-    for num, record in enumerate(internal_history):
+    internal_history = chess.get_history()
+    for record in internal_history:
         displayable_name = get_displayable_history_name(record['start'], record['end'])
 
         image = ""
         class_name = ""
-        if num == index:
+        if record.get('current'):
             class_name = "current"
 
         if 'captures' in record:

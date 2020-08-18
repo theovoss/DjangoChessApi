@@ -4,7 +4,7 @@
 }
 
 .history-content {
-  height: 50vh;
+  height: 45vh;
   overflow: scroll;
   display: flex;
   flex-wrap: wrap;
