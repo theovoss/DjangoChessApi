@@ -64,7 +64,7 @@ def get_displayable_board(board):
         color = piece.color
 
         image = _get_image(piece.kind, color)
-        displayable[_make_frontend_key(position)] = image
+        displayable[_make_frontend_key(position)] = {'image': image, 'promote_me_daddy': piece.promote_me_daddy}
     return displayable
 
 

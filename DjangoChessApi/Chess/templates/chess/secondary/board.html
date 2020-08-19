@@ -6,13 +6,17 @@
   {% for row in 8|times_reverse %}
     <div class="row">
       {% for column in 8|times %}
-        <div class="square" data-row={{row}} data-column={{column}} id="{{row}},{{column}}">
-          {% with key=""|add:row|add:","|add:column %}
-            {% if board|get_item:key %}
-              <img src="{{ board|get_item:key }}">
+        {% with key=""|add:row|add:","|add:column %}
+          {% if board|get_item:key|get_item:'promote_me_daddy' %}
+            <div class="square promote" data-row={{row}} data-column={{column}} id="{{row}},{{column}}">
+          {% else %}
+            <div class="square" data-row={{row}} data-column={{column}} id="{{row}},{{column}}">
+          {% endif %}
+            {% if board|get_item:key|get_item:'image' %}
+              <img src="{{ board|get_item:key|get_item:'image' }}">
             {% endif %}
-          {% endwith %}
-        </div>
+          </div>
+        {% endwith %}
       {% endfor %}
     </div>
   {% endfor %}

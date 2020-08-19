@@ -1,7 +1,5 @@
 squares = document.querySelectorAll(".square");
 
-console.log("Squares have length of");
-console.log(squares.length)
 // handle clicks
 function gameClickHandler(e) {
   otherSelected = document.querySelectorAll('.selected');
@@ -71,6 +69,5 @@ function gameClickHandler(e) {
 }
 
 squares.forEach(square => {
-  console.log("Attaching to squares");
   square.addEventListener('click', gameClickHandler);
 })
