@@ -11,14 +11,6 @@ class TestGame(TestCase):
             ['pawn', 'rook', 'knight', 'bishop', 'queen', 'king',],
         )
 
-    def test_board(self):
-        game = Game()
-        pieces = ['pawn', 'knight', 'rook', 'bishop', 'king', 'queen']
-        board = game.board
-        self.assertEqual(list(board.keys()), ['Player 1', 'Player 2'])
-        self.assertEqual(list(board['Player 1'].keys()), pieces)
-        self.assertEqual(list(board['Player 2'].keys()), pieces)
-
     def test_turn(self):
         game = Game()
         self.assertEqual(game.turn, "Player 1")

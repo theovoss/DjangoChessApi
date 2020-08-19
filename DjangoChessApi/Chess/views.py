@@ -13,12 +13,7 @@ from chess.chess_configurations import (
 from rest_framework.reverse import reverse
 
 from .forms import GameTypeForm
-from .helpers import (
-    get_displayable_board,
-    get_displayable_history_name,
-    get_image,
-    get_pieces,
-)
+from .helpers import get_displayable_board, get_displayable_history, get_pieces
 from .models import Game, GameType
 
 
@@ -53,40 +48,14 @@ def create_game_redirect(_, game_type_id):
     return HttpResponseRedirect(url)
 
 
-def _get_displayable_history(game):
-    chess = Chess(game.data)
-    history = []
-    # TODO: modify chess to expose these things we need.
-    internal_history = chess.get_history()
-    for record in internal_history:
-        displayable_name = get_displayable_history_name(record['start'], record['end'])
-
-        image = ""
-        class_name = ""
-        if record.get('current'):
-            class_name = "current"
-
-        if 'captures' in record:
-            recorded_captures = record['captures']
-            if len(recorded_captures) > 1:
-                print("Captured multiple... now what??")
-            for capture in recorded_captures:
-                name = capture['name']
-                color = capture['color']
-                image = get_image(name, color)
-
-        history.append({'name': displayable_name, 'image': image, 'class': class_name})
-    return history
-
-
 def play_game(request, game_id):
     game = Game.objects.get(pk=game_id)
-
-    displayable_board = get_displayable_board(game.board)
+    chess = Chess(game.data)
+    displayable_board = get_displayable_board(chess.board)
     destinations_url = reverse('move-destinations', args=[game.id])
     move_url = reverse('move-move', args=[game.id])
 
-    history = _get_displayable_history(game)
+    history = get_displayable_history(chess)
     context = {
         'board': displayable_board,
         'destinations_url': destinations_url,
@@ -114,7 +83,8 @@ def create_configuration(request):
 
 def configuration_board(request, game_type_id):
     game_type = GameType.objects.get(pk=game_type_id)
-    displayable_board = get_displayable_board(game_type.board)
+    chess = Chess(game_type.rules)
+    displayable_board = get_displayable_board(chess.board)
 
     if request.method == "POST":
         form = GameTypeForm(request.POST, instance=game_type)

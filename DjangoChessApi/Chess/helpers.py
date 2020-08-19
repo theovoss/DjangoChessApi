@@ -40,12 +40,12 @@ def get_pieces(game_type, color):
         pieces = normal_chess_rules['pieces']
 
     for piece in pieces:
-        pieces[piece]['image'] = get_image(piece, color)
+        pieces[piece]['image'] = _get_image(piece, color)
 
     return deepcopy(pieces)
 
 
-def get_image(piece, color):
+def _get_image(piece, color):
     if piece in images and color in images[piece]:
         return images[piece][color]
     return None
@@ -58,17 +58,41 @@ def _make_frontend_key(position):
 def get_displayable_board(board):
     displayable = {}
 
-    for player in board:  # dict
-        for piece in board[player]:  # dict
-            color = 'white' if '1' in player else 'black'
-            for data in board[player][piece]:  # List of dicts
-                position = data['position']
-                image = get_image(piece, color)
-                displayable[_make_frontend_key(position)] = image
+    for position, piece in board.items():
+        if not piece:
+            continue
+        color = piece.color
+
+        image = _get_image(piece.kind, color)
+        displayable[_make_frontend_key(position)] = image
     return displayable
 
 
-def get_displayable_history_name(_start, _end):
+def get_displayable_history(chess):
+    history = []
+    internal_history = chess.get_history()
+    for record in internal_history:
+        displayable_name = _get_displayable_history_name(record['start'], record['end'])
+
+        image = ""
+        class_name = ""
+        if record.get('current'):
+            class_name = "current"
+
+        if 'captures' in record:
+            recorded_captures = record['captures']
+            if len(recorded_captures) > 1:
+                print("Captured multiple... now what??")
+            for capture in recorded_captures:
+                name = capture['name']
+                color = capture['color']
+                image = _get_image(name, color)
+
+        history.append({'name': displayable_name, 'image': image, 'class': class_name})
+    return history
+
+
+def _get_displayable_history_name(_start, _end):
     start = _convert_to_external(_start)
     end = _convert_to_external(_end)
     return "{} -> {}".format(start, end)

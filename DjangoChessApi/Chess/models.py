@@ -20,10 +20,6 @@ class GameType(models.Model):
     def rule_definitions(self):
         return self.rules['pieces']
 
-    @property
-    def board(self):
-        return self.rules['board']
-
     def get_rules(self):
         return self.rules
 
@@ -70,10 +66,6 @@ class Game(models.Model):
     @property
     def rules(self):
         return self.data['pieces']
-
-    @property
-    def board(self):
-        return self.data['board']
 
     @property
     def turn(self):

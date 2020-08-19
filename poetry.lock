@@ -117,7 +117,7 @@ python-versions = "*"
 version = "0.1.0"
 
 [package.source]
-reference = "3e85b8428fd715ba2aaeb836f1b3c15be9f9b457"
+reference = "8d8254ce962c8ce022afdae5b67b2c61e2e052c2"
 type = "git"
 url = "https://github.com/theovoss/Chess"
 [[package]]
@@ -1050,7 +1050,7 @@ docs = ["sphinx", "jaraco.packaging (>=3.2)", "rst.linker (>=1.9)"]
 testing = ["jaraco.itertools", "func-timeout"]
 
 [metadata]
-content-hash = "d6dad2e77457bc8121a8a59b6c165b4a6eab7a3c940a9a719293a26d64d3dffa"
+content-hash = "4e9c3e073fffa2160acbbb4ba1248f0dc87a7b828c6944202721d4c45a35883d"
 lock-version = "1.0"
 python-versions = "^3.6.4"
 

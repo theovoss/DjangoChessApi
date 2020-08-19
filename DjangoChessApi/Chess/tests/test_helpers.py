@@ -1,6 +1,13 @@
 from django.test import SimpleTestCase
 
-from DjangoChessApi.Chess.helpers import get_displayable_board, get_image, get_pieces
+from chess.chess import Chess
+
+from DjangoChessApi.Chess.helpers import (
+    _get_image,
+    get_displayable_board,
+    get_displayable_history,
+    get_pieces,
+)
 from DjangoChessApi.Chess.models import GameType
 
 
@@ -32,27 +39,74 @@ class TestGetPieces(SimpleTestCase):
 
 class TestGetImage(SimpleTestCase):
     def test_get_image_pawn(self):
-        url = get_image('pawn', 'white')
+        url = _get_image('pawn', 'white')
         self.assertEqual(
             url, "https://upload.wikimedia.org/wikipedia/commons/4/45/Chess_plt45.svg"
         )
 
     def test_get_image_non_existent_piece(self):
-        url = get_image('thor', 'white')
+        url = _get_image('thor', 'white')
         self.assertIsNone(url)
 
     def test_get_image_non_existent_color(self):
-        url = get_image('pawn', 'chartreuse')
+        url = _get_image('pawn', 'chartreuse')
         self.assertIsNone(url)
 
 
 class TestGetDisplayableBoard(SimpleTestCase):
     def test_get_displayable_board(self):
-        game_type = GameType()
+        chess = Chess()
 
-        actual = get_displayable_board(game_type.board)
+        actual = get_displayable_board(chess.board)
 
         for row in "0167":
             for column in range(8):
                 key = "{},{}".format(row, column)
                 self.assertIn(".svg", actual[key])
+
+
+class TestGetDisplayablehistory(SimpleTestCase):
+    def test_get_displayable_history_empty(self):
+        chess = Chess()
+
+        actual = get_displayable_history(chess)
+
+        self.assertEqual(actual, [])
+
+    def test_get_displayable_history_no_capture_history(self):
+        chess = Chess()
+        chess.move((1, 1), (2, 1))
+        chess.move((6, 4), (5, 4))
+        chess.move((2, 1), (3, 1))
+
+        actual = get_displayable_history(chess)
+
+        self.assertEqual(
+            actual,
+            [
+                {'name': 'b2 -> b3', 'image': '', 'class': ''},
+                {'name': 'e7 -> e6', 'image': '', 'class': ''},
+                {'name': 'b3 -> b4', 'image': '', 'class': 'current'},
+            ],
+        )
+
+    def test_get_displayable_history_with_capture_history(self):
+        chess = Chess()
+        chess.move((1, 1), (3, 1))
+        chess.move((6, 2), (4, 2))
+        chess.move((3, 1), (4, 2))
+
+        actual = get_displayable_history(chess)
+
+        self.assertEqual(
+            actual,
+            [
+                {'name': 'b2 -> b4', 'image': '', 'class': ''},
+                {'name': 'c7 -> c5', 'image': '', 'class': ''},
+                {
+                    'name': 'b4 -> c5',
+                    'image': 'https://upload.wikimedia.org/wikipedia/commons/c/c7/Chess_pdt45.svg',
+                    'class': 'current',
+                },
+            ],
+        )
