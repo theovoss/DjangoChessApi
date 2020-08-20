@@ -55,6 +55,8 @@ def play_game(request, game_id):
     destinations_url = reverse('move-destinations', args=[game.id])
     move_url = reverse('move-move', args=[game.id])
 
+    promotion_pieces = get_pieces(game.data, ignore=['king', 'pawn'])
+
     history = get_displayable_history(chess)
     context = {
         'board': displayable_board,
@@ -64,6 +66,7 @@ def play_game(request, game_id):
         'turn': game.turn_color,
         'history': history,
         'id': game.id,
+        'promotion_pieces': promotion_pieces,
     }
     return render(request, 'chess/main/play_game.html', context)
 
@@ -93,16 +96,16 @@ def configuration_board(request, game_type_id):
     else:
         form = GameTypeForm(instance=game_type)
 
-    black_pieces = get_pieces(game_type, "black")
-    white_pieces = get_pieces(game_type, "white")
+    pieces = get_pieces(game_type.rules)
+
     url = reverse('chess-configuration-configure-board', args=[game_type.id])
 
     context = {
         'id': game_type.id,
         'form': form,
         'board': displayable_board,
-        'black_pieces': black_pieces,
-        'white_pieces': white_pieces,
+        'black_pieces': pieces['black'],
+        'white_pieces': pieces['white'],
         'url': url,
     }
     return render(request, 'chess/main/configure_board.html', context)
@@ -122,7 +125,7 @@ def configuration(request, game_type_id):
     movement_rules = get_movement_rules()
     capture_actions = get_capture_action_rules()
 
-    pieces = get_pieces(game_type, "black")
+    pieces = get_pieces(game_type.rules)['black']
 
     checkmark_url = reverse('chess-configuration-checkmark', args=[game_type.id])
 

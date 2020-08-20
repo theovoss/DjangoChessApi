@@ -31,18 +31,22 @@ images = {
 }
 
 
-def get_pieces(game_type, color):
+def get_pieces(data, ignore=None):
+    retval = {'black': {}, 'white': {}}
     normal_chess_rules = get_standard_chess_pieces()
 
-    if game_type.rules:
-        pieces = game_type.rules['pieces']
+    if data and 'pieces' in data:
+        pieces = data['pieces']
     else:
         pieces = normal_chess_rules['pieces']
 
-    for piece in pieces:
-        pieces[piece]['image'] = _get_image(piece, color)
+    for color in ['black', 'white']:
+        for piece, data in pieces.items():
+            if ignore and piece in ignore:
+                continue
+            retval[color][piece] = {'image': _get_image(piece, color), 'moves': data['moves']}
 
-    return deepcopy(pieces)
+    return retval
 
 
 def _get_image(piece, color):

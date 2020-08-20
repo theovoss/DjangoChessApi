@@ -17,19 +17,27 @@ class TestGetPieces(SimpleTestCase):
 
         self.assertIsNotNone(game_type.rules)
 
-        pieces = get_pieces(game_type, 'white')
+        pieces = get_pieces(game_type.rules)['white']
         piece_names = ['pawn', 'rook', 'knight', 'bishop', 'queen', 'king']
         self.assertEqual(list(pieces.keys()), piece_names)
         for move in pieces['pawn']['moves']:
             self.assertIn('directions', move)
             self.assertIn('conditions', move)
 
-    def test_get_pieces_no_game_type_rules(self):
+    def test_get_pieces_ignoring_some(self):
         game_type = GameType()
-        game_type.rules = None
-        self.assertIsNone(game_type.rules, None)
 
-        pieces = get_pieces(game_type, 'white')
+        self.assertIsNotNone(game_type.rules)
+
+        pieces = get_pieces(game_type.rules, ['king', 'pawn'])['white']
+        piece_names = ['rook', 'knight', 'bishop', 'queen']
+        self.assertEqual(list(pieces.keys()), piece_names)
+        for move in pieces['bishop']['moves']:
+            self.assertIn('directions', move)
+            self.assertIn('conditions', move)
+
+    def test_get_pieces_no_game_type_rules(self):
+        pieces = get_pieces(None)['white']
         piece_names = ['pawn', 'rook', 'knight', 'bishop', 'queen', 'king']
         self.assertEqual(list(pieces.keys()), piece_names)
         for move in pieces['pawn']['moves']:
@@ -62,7 +70,7 @@ class TestGetDisplayableBoard(SimpleTestCase):
         for row in "0167":
             for column in range(8):
                 key = "{},{}".format(row, column)
-                self.assertIn(".svg", actual[key])
+                self.assertIn(".svg", actual[key]['image'])
 
 
 class TestGetDisplayablehistory(SimpleTestCase):

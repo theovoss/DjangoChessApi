@@ -11,6 +11,10 @@ class TemplateTagTest(SimpleTestCase):
         actual = get_item({'title': 'Hey There!'}, 'title')
         self.assertEqual(actual, 'Hey There!')
 
+    def test_get_item_returns_none_if_none_passed_in(self):
+        actual = get_item(None, 'title')
+        self.assertIsNone(actual)
+
     def test_index(self):
         a = ['a', 'b', 'c', 'd']
         self.assertEqual(index(a, 2), 'c')

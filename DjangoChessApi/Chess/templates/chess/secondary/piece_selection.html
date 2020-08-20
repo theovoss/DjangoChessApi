@@ -1,0 +1,7 @@
+{% for color, pieces in promotion_pieces.items %}
+  <div id="piece-selection-popover-content-{{color}}" class="d-none">
+    {% for piece, data in pieces.items %}
+      {% include "chess/secondary/piece_card.html" with piece=piece data=data color=color %}
+    {% endfor %}
+  </div>
+{% endfor %}
