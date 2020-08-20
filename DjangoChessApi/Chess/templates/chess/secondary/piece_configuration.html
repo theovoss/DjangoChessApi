@@ -44,9 +44,25 @@
             <div class="form-check">
               {% with move=data.moves|index:i %}
                 {% if action in move.capture_actions %}
-                  <input data-piece="{{piece}}" data-index="{{i}}" data-key="capture_actions" data-value="{{action}}" type="checkbox" class="form-check-input" name="{{ piece }}{{ i }}action" checked>
+                  <input data-piece="{{piece}}" data-index="{{i}}" data-key="capture_actions" data-value="{{action}}" type="checkbox" class="form-check-input" name="{{ piece }}{{ i }}capture_action" checked>
                 {% else %}
-                  <input data-piece="{{piece}}" data-index="{{i}}" data-key="capture_actions" data-value="{{action}}" type="checkbox" class="form-check-input" name="{{ piece }}{{ i }}action">
+                  <input data-piece="{{piece}}" data-index="{{i}}" data-key="capture_actions" data-value="{{action}}" type="checkbox" class="form-check-input" name="{{ piece }}{{ i }}capture_action">
+                {% endif %}
+              {% endwith %}
+              <label class="form-check-label" for="{{ piece }} {{ action }}">{{ action }}</label>
+            </div>
+          {% endfor %}
+        </div>
+
+        <h6 class="card-subtitle"> Post Move Actions {{ forloop.counter }}</h6>
+        <div>
+          {% for action in enums.post_move_actions %}
+            <div class="form-check">
+              {% with move=data.moves|index:i %}
+                {% if action in move.post_move_actions %}
+                  <input data-piece="{{piece}}" data-index="{{i}}" data-key="post_move_actions" data-value="{{action}}" type="checkbox" class="form-check-input" name="{{ piece }}{{ i }}post_move_action" checked>
+                {% else %}
+                  <input data-piece="{{piece}}" data-index="{{i}}" data-key="post_move_actions" data-value="{{action}}" type="checkbox" class="form-check-input" name="{{ piece }}{{ i }}post_move_action">
                 {% endif %}
               {% endwith %}
               <label class="form-check-label" for="{{ piece }} {{ action }}">{{ action }}</label>

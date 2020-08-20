@@ -9,6 +9,7 @@ from chess.chess_configurations import (
     get_capture_action_rules,
     get_movement_directions,
     get_movement_rules,
+    get_post_move_actions_rules,
 )
 from rest_framework.reverse import reverse
 
@@ -126,7 +127,7 @@ def configuration(request, game_type_id):
     directions = get_movement_directions()
     movement_rules = get_movement_rules()
     capture_actions = get_capture_action_rules()
-
+    post_move_actions = get_post_move_actions_rules()
     pieces = get_pieces(game_type.rules)['black']
 
     checkmark_url = reverse('chess-configuration-checkmark', args=[game_type.id])
@@ -139,6 +140,7 @@ def configuration(request, game_type_id):
             'directions': directions,
             'movements': movement_rules,
             'capture_actions': capture_actions,
+            'post_move_actions': post_move_actions,
         },
         'form': form,
     }

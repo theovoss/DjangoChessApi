@@ -131,6 +131,25 @@ class ConfigurationTests(APITestCase):
 
         game_type.delete()
 
+    def test_post_post_move_action_success(self):
+        game_type = GameType(name="name", description="conditions")
+        game_type.save()
+        pk = game_type.id
+
+        key = 'post_move_actions'
+        expected = ['increment_move_count', 'promotable']
+        data = {'piece': 'king', 'index': '0', 'key': key, 'value': expected}
+
+        url = reverse('chess-configuration-checkmark', args=[game_type.id])
+        response = self.client.post(url, data=data)
+
+        self.assertEqual(response.status_code, 200)
+
+        game_type = GameType.objects.get(pk=pk)
+        self.assertEqual(game_type.rules['pieces']['king']['moves'][0][key], expected)
+
+        game_type.delete()
+
     def test_post_limits_directions(self):
         game_type = GameType(name="name", description="description")
         game_type.save()
@@ -175,6 +194,26 @@ class ConfigurationTests(APITestCase):
             'piece': 'king',
             'index': '0',
             'key': 'capture_actions',
+            'value': ['thor'],
+        }
+
+        url = reverse('chess-configuration-checkmark', args=[game_type.id])
+        response = self.client.post(url, data=data)
+
+        self.assertEqual(response.status_code, 400)
+
+        game_type = GameType.objects.get(pk=pk)
+        game_type.delete()
+
+    def test_post_limits_post_move_actions(self):
+        game_type = GameType(name="name", description="description")
+        game_type.save()
+        pk = game_type.id
+
+        data = {
+            'piece': 'king',
+            'index': '0',
+            'key': 'post_move_actions',
             'value': ['thor'],
         }
 

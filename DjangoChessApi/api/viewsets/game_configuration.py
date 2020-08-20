@@ -2,6 +2,7 @@ from chess.chess_configurations import (
     get_capture_action_rules,
     get_movement_directions,
     get_movement_rules,
+    get_post_move_actions_rules,
     get_standard_chess_pieces,
 )
 from rest_framework import status, viewsets
@@ -114,6 +115,19 @@ class GameTypeViewSet(viewsets.ModelViewSet):
             self.set_data(pk, piece, index, key, values)
         elif key == 'capture_actions':
             action_rules = get_capture_action_rules()
+            for value in values:
+                if value not in action_rules:
+                    return Response(
+                        status=status.HTTP_400_BAD_REQUEST,
+                        data={
+                            "Invalid action rule ERROR": "{} is not in {}".format(
+                                value, action_rules
+                            )
+                        },
+                    )
+            self.set_data(pk, piece, index, key, values)
+        elif key == 'post_move_actions':
+            action_rules = get_post_move_actions_rules()
             for value in values:
                 if value not in action_rules:
                     return Response(
