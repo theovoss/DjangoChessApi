@@ -1,5 +1,3 @@
-from copy import deepcopy
-
 from chess.chess_configurations import get_standard_chess_pieces
 
 
@@ -41,10 +39,13 @@ def get_pieces(data, ignore=None):
         pieces = normal_chess_rules['pieces']
 
     for color in ['black', 'white']:
-        for piece, data in pieces.items():
+        for piece, piece_data in pieces.items():
             if ignore and piece in ignore:
                 continue
-            retval[color][piece] = {'image': _get_image(piece, color), 'moves': data['moves']}
+            retval[color][piece] = {
+                'image': _get_image(piece, color),
+                'moves': piece_data['moves'],
+            }
 
     return retval
 
@@ -68,7 +69,12 @@ def get_displayable_board(board):
         color = piece.color
 
         image = _get_image(piece.kind, color)
-        displayable[_make_frontend_key(position)] = {'image': image, 'promote_me_daddy': piece.promote_me_daddy}
+        displayable[_make_frontend_key(position)] = {
+            'image': image,
+            'promote_me_daddy': piece.promote_me_daddy,
+            'name': piece.kind,
+            'color': piece.color,
+        }
     return displayable
 
 

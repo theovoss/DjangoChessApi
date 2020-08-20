@@ -17,12 +17,44 @@ $('.promote').data(attributes)
 // initialize and manually show the popover (can't be dismissed)
 $('.promote').popover({
   container: 'body',
+  title: 'Promote',
   content: function() {
-    return $('#piece-selection-popover-content-black').html();
+    color = this.dataset.color;
+    template = $(`#piece-selection-popover-content-${color}`).html()
+    return template;
   }
 });
 
 $('.promote').popover('show');
 
+function select_piece(event) {
+  piece_name = this.getElementsByTagName('img')[0].alt;
 
+  popover_id = this.parentElement.parentElement.id;
+  attached_piece = $(`[aria-describedby="${popover_id}"`)[0];
 
+  row = attached_piece.dataset.row;
+  column = attached_piece.dataset.column;
+
+  data = {
+    'row': parseInt(row),
+    'column': parseInt(column),
+    'name': piece_name,
+  }
+
+  url = document.querySelector('.promote_url').dataset.url;
+
+  const otherParams = {
+    headers: {
+      "content-type": "application/json;",
+    },
+    body: JSON.stringify(data),
+    method: "POST"
+  }
+
+  fetch(url, otherParams)
+    .then(response => location.reload())
+    .catch(error => console.log(error));
+}
+
+$('.popover-body .card').click(select_piece);

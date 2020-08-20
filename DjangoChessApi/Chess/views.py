@@ -54,6 +54,7 @@ def play_game(request, game_id):
     displayable_board = get_displayable_board(chess.board)
     destinations_url = reverse('move-destinations', args=[game.id])
     move_url = reverse('move-move', args=[game.id])
+    promote_url = reverse('move-promote', args=[game.id])
 
     promotion_pieces = get_pieces(game.data, ignore=['king', 'pawn'])
 
@@ -62,6 +63,7 @@ def play_game(request, game_id):
         'board': displayable_board,
         'destinations_url': destinations_url,
         'move_url': move_url,
+        'promote_url': promote_url,
         'rule_summary': game.rule_summary,
         'turn': game.turn_color,
         'history': history,

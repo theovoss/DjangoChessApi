@@ -2,6 +2,11 @@ squares = document.querySelectorAll(".square");
 
 // handle clicks
 function gameClickHandler(e) {
+  promoteable = document.querySelectorAll('.promote');
+  if(promoteable.length > 0) {
+    // don't allow additional moves while a piece is waiting to be promted.
+    return;
+  }
   otherSelected = document.querySelectorAll('.selected');
   currentDestinations = document.querySelectorAll('.destination');
   if(otherSelected.length == 0) {

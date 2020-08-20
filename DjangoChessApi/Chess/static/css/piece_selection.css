@@ -1,7 +1,3 @@
-.popover-body {
-  border: 1px solid red;
-}
-
 .popover-body .card {
   width: 10vh;
   height: 10vh;
@@ -15,4 +11,8 @@
 
 .popover-body .card .card-body {
   padding: 0;
+}
+
+.popover {
+  text-align: center;
 }

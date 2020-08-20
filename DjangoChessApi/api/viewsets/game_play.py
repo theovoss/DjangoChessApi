@@ -9,6 +9,21 @@ from DjangoChessApi.Chess.models import Game
 
 
 class MoveViewSet(viewsets.ViewSet):
+    @action(methods=['POST'], detail=True, url_name="promote")
+    def promote(self, request, pk=None):
+        game = Game.objects.get(pk=pk)
+        chess = Chess(game.data)
+
+        chess.promote(
+            (request.data['row'], request.data['column']), request.data['name']
+        )
+
+        # update db with new board
+        game.data = chess.export()
+        game.save()
+
+        return Response("success, time to refresh")
+
     @action(methods=['POST'], detail=True, url_name="destinations")
     def get_destinations(self, request, pk=None):
         game = Game.objects.get(pk=pk)
