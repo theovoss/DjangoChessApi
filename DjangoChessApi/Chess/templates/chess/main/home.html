@@ -7,10 +7,34 @@
 
 {% block body %}
 
-<div class="game-types">
-  {% for game_type in game_types %}
-    {% include "chess/secondary/game_type.html" with game_type=game_type %}
-  {% endfor %}
+<div class="panel panel-default accordion" id="standardGameTypeAccordian">
+  <div class="panel-heading" id="game_type_standard_heading">
+    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#game_type_standard" aria-expanded="true" aria-controls="game_type_standard">
+      Standard Game Rules and Common Variants
+    </button>
+  </div>
+  <div id="game_type_standard" class="collapse show" aria-labelledby="game_type_standard_heading" data-parent="#standardGameTypeAccordian">
+    <div class="panel-body d-flex flex-wrap">
+      {% for standard_game_type in standard_game_types %}
+        {% include "chess/secondary/game_type.html" with game_type=standard_game_type %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+<div class="panel panel-default accordion" id="personalGameTypeAccordian">
+  <div class="panel-heading" id="game_type_personal_heading">
+    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#game_type_personal" aria-expanded="true" aria-controls="game_type_personal">
+      Personal Game Rules
+    </button>
+  </div>
+  <div id="game_type_personal" class="collapse show" aria-labelledby="game_type_personal_heading" data-parent="#personalGameTypeAccordian">
+    <div class="panel-body d-flex flex-wrap">
+      {% for game_type in game_types %}
+        {% include "chess/secondary/game_type.html" with game_type=game_type %}
+      {% endfor %}
+    </div>
+  </div>
 </div>
 
 <script src="{% static 'js/game_type.js' %}"></script>

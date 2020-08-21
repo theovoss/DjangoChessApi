@@ -15,7 +15,7 @@ from rest_framework.reverse import reverse
 
 from .forms import GameTypeForm
 from .helpers import get_displayable_board, get_displayable_history, get_pieces
-from .models import Game, GameType
+from .models import Game, GameType, VisibilityOptions
 
 
 def current_datetime(request):
@@ -28,8 +28,9 @@ def current_datetime(request):
 
 
 def home(request):
-    game_types = GameType.objects.all()
-    return render(request, 'chess/main/home.html', {'game_types': game_types})
+    standard_game_types = GameType.objects.filter(visibility=VisibilityOptions.STANDARD.value).all()
+    private_game_types = GameType.objects.filter(visibility=VisibilityOptions.PRIVATE.value).all()
+    return render(request, 'chess/main/home.html', {'game_types': private_game_types, 'standard_game_types': standard_game_types})
 
 
 def create_game(request):

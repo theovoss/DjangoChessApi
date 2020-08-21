@@ -1,6 +1,8 @@
 # pylint: disable=E1136
 # disabling E1136 so pylint doesn't yell about indexing json fields
 
+from enum import Enum
+
 from django.contrib.auth.models import User
 from django.db import models
 from django.db.models.deletion import CASCADE, SET_NULL
@@ -8,10 +10,26 @@ from django.db.models.deletion import CASCADE, SET_NULL
 from chess.chess_configurations import get_standard_chess_pieces
 
 
+class VisibilityOptions(Enum):
+    PRIVATE = "PR"
+    FRIENDS = "FR"
+    PUBLIC = "PU"
+    STANDARD = "ST"
+
+    @classmethod
+    def all(self):
+        return [VisibilityOptions.PRIVATE, VisibilityOptions.FRIENDS, VisibilityOptions.PUBLIC, VisibilityOptions.STANDARD]
+
+
 class GameType(models.Model):
     name = models.CharField(max_length=30)
     description = models.TextField()
     rules = models.JSONField(default=get_standard_chess_pieces)
+    visibility = models.CharField(
+        default=VisibilityOptions.PRIVATE.value,
+        max_length=2,
+        choices=[(tag.value, tag.name) for tag in VisibilityOptions.all()]
+    )
     created_by = models.ForeignKey(User, null=True, on_delete=SET_NULL)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
