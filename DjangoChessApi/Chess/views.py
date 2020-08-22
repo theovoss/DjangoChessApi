@@ -18,18 +18,9 @@ from .helpers import get_displayable_board, get_displayable_history, get_pieces
 from .models import Game, GameType, VisibilityOptions
 
 
-def current_datetime(request):
-    log.debug(request)
-    now = datetime.datetime.now()
-    html = (
-        "<html><body>Welcome to DjangoChessApi." "<br>" "It is now %s.</body></html>"
-    ) % now
-    return HttpResponse(html)
-
-
 def home(request):
     standard_game_types = GameType.objects.filter(visibility=VisibilityOptions.STANDARD.value).all()
-    private_game_types = GameType.objects.filter(visibility=VisibilityOptions.PRIVATE.value).all()
+    private_game_types = GameType.objects.filter(visibility=VisibilityOptions.PRIVATE.value, created_by=request.user).all()
     return render(request, 'chess/main/home.html', {'game_types': private_game_types, 'standard_game_types': standard_game_types})
 
 
@@ -79,7 +70,9 @@ def create_configuration(request):
     if request.method == "POST":
         form = GameTypeForm(request.POST)
         if form.is_valid():
-            game_type = form.save()
+            game_type = form.save(commit=False)
+            game_type.created_by = request.user
+            game_type.save()
             return HttpResponseRedirect(
                 reverse('Chess:configure-edit', kwargs={'game_type_id': game_type.id})
             )
