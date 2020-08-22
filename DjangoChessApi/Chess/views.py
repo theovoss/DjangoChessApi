@@ -1,9 +1,6 @@
-import datetime
-
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
 
-import log
 from chess.chess import Chess
 from chess.chess_configurations import (
     get_capture_action_rules,
@@ -19,9 +16,17 @@ from .models import Game, GameType, VisibilityOptions
 
 
 def home(request):
-    standard_game_types = GameType.objects.filter(visibility=VisibilityOptions.STANDARD.value).all()
-    private_game_types = GameType.objects.filter(visibility=VisibilityOptions.PRIVATE.value, created_by=request.user).all()
-    return render(request, 'chess/main/home.html', {'game_types': private_game_types, 'standard_game_types': standard_game_types})
+    standard_game_types = GameType.objects.filter(
+        visibility=VisibilityOptions.STANDARD.value
+    ).all()
+    private_game_types = GameType.objects.filter(
+        visibility=VisibilityOptions.PRIVATE.value, created_by=request.user
+    ).all()
+    return render(
+        request,
+        'chess/main/home.html',
+        {'game_types': private_game_types, 'standard_game_types': standard_game_types},
+    )
 
 
 def create_game(request):

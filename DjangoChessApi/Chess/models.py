@@ -17,8 +17,13 @@ class VisibilityOptions(Enum):
     STANDARD = "ST"
 
     @classmethod
-    def all(self):
-        return [VisibilityOptions.PRIVATE, VisibilityOptions.FRIENDS, VisibilityOptions.PUBLIC, VisibilityOptions.STANDARD]
+    def all(cls):
+        return [
+            VisibilityOptions.PRIVATE,
+            VisibilityOptions.FRIENDS,
+            VisibilityOptions.PUBLIC,
+            VisibilityOptions.STANDARD,
+        ]
 
 
 class GameType(models.Model):
@@ -28,7 +33,7 @@ class GameType(models.Model):
     visibility = models.CharField(
         default=VisibilityOptions.PRIVATE.value,
         max_length=2,
-        choices=[(tag.value, tag.name) for tag in VisibilityOptions.all()]
+        choices=[(tag.value, tag.name) for tag in VisibilityOptions.all()],
     )
     created_by = models.ForeignKey(User, null=True, on_delete=SET_NULL)
     created_at = models.DateTimeField(auto_now_add=True)

@@ -13,6 +13,15 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='gametype',
             name='visibility',
-            field=models.CharField(choices=[('PR', 'PRIVATE'), ('FR', 'FRIENDS'), ('PU', 'PUBLIC'), ('ST', 'STANDARD')], default='PR', max_length=2),
+            field=models.CharField(
+                choices=[
+                    ('PR', 'PRIVATE'),
+                    ('FR', 'FRIENDS'),
+                    ('PU', 'PUBLIC'),
+                    ('ST', 'STANDARD'),
+                ],
+                default='PR',
+                max_length=2,
+            ),
         ),
     ]
