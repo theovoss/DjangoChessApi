@@ -116,3 +116,6 @@ CORS_ORIGIN_ALLOW_ALL = True
 # Grappelli
 
 GRAPPELLI_ADMIN_TITLE = "DjangoChessApi Admin"
+
+
+LOGIN_REDIRECT_URL = "Chess:home"

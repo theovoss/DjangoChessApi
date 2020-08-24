@@ -1,10 +1,12 @@
-from django.urls import path
+from django.urls import include, path
 
 from . import views
 
 
+
 urlpatterns = [
     path('', views.home, name="home"),
+
     path('configure/', views.create_configuration, name="configure"),
     path('configure/<int:game_type_id>/', views.configuration, name="configure-edit"),
     path(
@@ -19,6 +21,9 @@ urlpatterns = [
         name="create-game-redirect",
     ),
     path('game/play/<int:game_id>/', views.play_game, name="play-game"),
+
+    path('accounts/', include('django.contrib.auth.urls')),
+    path('accounts/', include('django_registration.backends.one_step.urls')),
 ]
 
 app_name = 'Chess'

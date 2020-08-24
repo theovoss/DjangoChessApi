@@ -27,8 +27,6 @@ ALLOWED_HOSTS = [
 DATABASES = {}
 DATABASES['default'] = dj_database_url.config()
 
-print("Databases are:")
-print(DATABASES)
 ###############################################################################
 # Caches
 

@@ -19,13 +19,19 @@ def home(request):
     standard_game_types = GameType.objects.filter(
         visibility=VisibilityOptions.STANDARD.value
     ).all()
-    private_game_types = GameType.objects.filter(
-        visibility=VisibilityOptions.PRIVATE.value, created_by=request.user
-    ).all()
+
+    username = None
+    if request.user.is_authenticated:
+        username = request.user.username
+        private_game_types = GameType.objects.filter(
+            visibility=VisibilityOptions.PRIVATE.value, created_by=request.user
+        ).all()
+    else:
+        private_game_types = []
     return render(
         request,
         'chess/main/home.html',
-        {'game_types': private_game_types, 'standard_game_types': standard_game_types},
+        {'game_types': private_game_types, 'standard_game_types': standard_game_types, 'username': username},
     )
 
 
