@@ -20,9 +20,7 @@ def home(request):
         visibility=VisibilityOptions.STANDARD.value
     ).all()
 
-    username = None
     if request.user.is_authenticated:
-        username = request.user.username
         private_game_types = GameType.objects.filter(
             visibility=VisibilityOptions.PRIVATE.value, created_by=request.user
         ).all()
@@ -31,7 +29,10 @@ def home(request):
     return render(
         request,
         'chess/main/home.html',
-        {'game_types': private_game_types, 'standard_game_types': standard_game_types, 'username': username},
+        {
+            'game_types': private_game_types,
+            'standard_game_types': standard_game_types,
+        },
     )
 
 
@@ -40,13 +41,14 @@ def create_game(request):
     return render(request, 'chess/main/create_game.html', {'game_types': game_types})
 
 
-def create_game_redirect(_, game_type_id):
+def create_game_redirect(request, game_type_id):
     game_type = GameType.objects.get(pk=game_type_id)
     new_game = Game(
         data=game_type.get_rules(),
         rule_name=game_type.name,
         rule_description=game_type.description,
     )
+    new_game.set_player(request.user)
     new_game.save()
     url = reverse('Chess:play-game', kwargs={'game_id': new_game.id})
     return HttpResponseRedirect(url)
@@ -72,6 +74,7 @@ def play_game(request, game_id):
         'turn': game.turn_color,
         'history': history,
         'id': game.id,
+        'game': game,
         'promotion_pieces': promotion_pieces,
     }
     return render(request, 'chess/main/play_game.html', context)

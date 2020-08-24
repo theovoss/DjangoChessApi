@@ -1,0 +1,16 @@
+{% extends 'chess/header.html' %}
+
+{% block body %}
+  <h2>{{ user|title }} Games</h2>
+  <div id="games" class="d-flex flex-wrap align-content-stretch">
+    {% for game in my_games %}
+      <div id="{{ game.id }}" class="card">
+        <div class="card-body">
+          <h4 class="card-title">{{ game.rule_name }}</h4>
+          <p>{{ game.player1|title|default:"Agent X" }} vs {{ game.player2|title|default:"Bond, James Bond" }}</p>
+          <a href={% url 'Chess:play-game' game.id %} class="stretched-link"></a>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% endblock %}

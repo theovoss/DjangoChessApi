@@ -7,8 +7,8 @@
 {% endblock %}
 
 {% block body %}
-<p>{% url 'Chess:django_registration_register' %}</p>
-  <form method="post" action="{% url 'Chess:django_registration_register' %}">
+<p>{% url 'django_registration_register' %}</p>
+  <form method="post" action="{% url 'django_registration_register' %}">
     {% csrf_token %}
     {{ form|crispy }}
     <input type="submit" value="Submit">

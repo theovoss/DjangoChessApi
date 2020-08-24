@@ -33,8 +33,8 @@
             <a href="#" class="history_action previous round" data-url={% url 'history-previous' pk=id %}>&laquo; previous</a>
             <a href="#" class="history_action next round" data-url={% url 'history-next' pk=id %}>next &raquo;</a>
           </div>
-          <h3>White</h3>
-          <h3>Black</h3>
+          <h3 >White {{ game.player1|title|default:"NA" }}</h3>
+          <h3>Black {{ game.player2|title|default:"NA" }}</h3>
         </div>
         <div class="history-content">
           {% for item in history %}

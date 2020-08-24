@@ -1,6 +1,6 @@
 # pylint: disable=E1136
 # disabling E1136 so pylint doesn't yell about indexing json fields
-
+import random
 from enum import Enum
 
 from django.contrib.auth.models import User
@@ -101,3 +101,17 @@ class Game(models.Model):
     @property
     def rule_summary(self):
         return {'name': self.rule_name, 'description': self.rule_description}
+
+    def set_player(self, user):
+        print(type(user))
+        print("Setting player to user:" + str(user.id))
+        if self.player1 is not None:
+            if self.player2 is None:
+                self.player2 = user
+        elif self.player2 is not None:
+            self.player1 = user
+        else:
+            if random.choice([1, 2]) == 1:
+                self.player1 = user
+            else:
+                self.player2 = user

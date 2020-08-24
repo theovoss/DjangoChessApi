@@ -1,12 +1,13 @@
 from django.urls import include, path
 
-from . import views
-
+from DjangoChessApi.Chess import all_views as views
+from DjangoChessApi.Chess.views.GameListView import GameListView
 
 
 urlpatterns = [
     path('', views.home, name="home"),
 
+    # Configurations
     path('configure/', views.create_configuration, name="configure"),
     path('configure/<int:game_type_id>/', views.configuration, name="configure-edit"),
     path(
@@ -14,6 +15,8 @@ urlpatterns = [
         views.configuration_board,
         name="configure-board",
     ),
+
+    # Playing
     path('game/create/', views.create_game, name="create-game"),
     path(
         'game/create/<int:game_type_id>/',
@@ -21,9 +24,7 @@ urlpatterns = [
         name="create-game-redirect",
     ),
     path('game/play/<int:game_id>/', views.play_game, name="play-game"),
-
-    path('accounts/', include('django.contrib.auth.urls')),
-    path('accounts/', include('django_registration.backends.one_step.urls')),
+    path('games/', GameListView.as_view(), name="games"),
 ]
 
 app_name = 'Chess'
