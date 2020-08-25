@@ -82,7 +82,8 @@ def create_configuration(request):
         form = GameTypeForm(request.POST)
         if form.is_valid():
             game_type = form.save(commit=False)
-            game_type.created_by = request.user
+            if request.user.is_authenticated:
+                game_type.created_by = request.user
             game_type.save()
             return HttpResponseRedirect(
                 reverse('Chess:configure-edit', kwargs={'game_type_id': game_type.id})
