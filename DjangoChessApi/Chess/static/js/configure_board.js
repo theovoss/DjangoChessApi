@@ -40,13 +40,8 @@ function setSquare(square) {
     'piece': piece_name,
     'color': color
   }
-  const otherParams = {
-    headers: {
-      "content-type": "application/json;"
-    },
-    body: JSON.stringify(data),
-    method: "POST"
-  }
+
+  const otherParams = getFetchParams(data);
 
   // TODO: Handle responses somehow. Maybe on 400/500 uncheck the box since it didn't save, and maybe show an error...
   fetch(url, otherParams)

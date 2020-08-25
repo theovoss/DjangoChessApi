@@ -44,13 +44,7 @@ function select_piece(event) {
 
   url = document.querySelector('.promote_url').dataset.url;
 
-  const otherParams = {
-    headers: {
-      "content-type": "application/json;",
-    },
-    body: JSON.stringify(data),
-    method: "POST"
-  }
+  const otherParams = getFetchParams(data);
 
   fetch(url, otherParams)
     .then(response => location.reload())

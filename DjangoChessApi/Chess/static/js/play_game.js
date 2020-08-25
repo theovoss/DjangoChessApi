@@ -18,13 +18,8 @@ function gameClickHandler(e) {
       row: this.dataset.row,
       column: this.dataset.column
     }
-    const otherParams = {
-      headers: {
-        "content-type": "application/json;",
-      },
-      body: JSON.stringify(data),
-      method: "POST"
-    }
+
+    const otherParams = getFetchParams(data);
 
     fetch(url, otherParams)
       .then(response => response.json())
@@ -52,13 +47,8 @@ function gameClickHandler(e) {
           column: otherSelected[0].dataset.column
         }
       }
-      const otherParams = {
-        headers: {
-          "content-type": "application/json;",
-        },
-        body: JSON.stringify(data),
-        method: "POST"
-      }
+      const otherParams = getFetchParams(data);
+
       fetch(url, otherParams)
         .then(_ => location.reload())
         .catch(error => console.log(error));

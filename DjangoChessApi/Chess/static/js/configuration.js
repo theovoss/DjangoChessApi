@@ -3,9 +3,7 @@ let card_images = [...document.querySelectorAll('.card img')];
 let delete_button = document.querySelector('.delete')
 
 delete_button.onclick = () => {
-  const otherParams = {
-    method: "DELETE"
-  }
+  const otherParams = getFetchParams({}, 'DELETE');
 
   // TODO: Handle responses somehow. maybe show warning if 400/500
   fetch(delete_button.dataset.url, otherParams)
@@ -45,34 +43,10 @@ function save_checks(e) {
     }
   });
 
-  const otherParams = {
-    headers: {
-      "HTTP_X_CSRFTOKEN": getCookie('csrftoken'),
-      "content-type": "application/json;",
-    },
-    body: JSON.stringify(data),
-    method: "POST"
-  }
+  const otherParams = getFetchParams(data);
 
   // TODO: Handle responses somehow. Maybe on 400/500 uncheck the box since it didn't save, and maybe show an error...
   fetch(url, otherParams)
     .then(response => console.log(response))
     .catch(error => console.log(error));
-}
-
-
-function getCookie(name) {
-  let cookieValue = null;
-  if (document.cookie && document.cookie !== '') {
-      const cookies = document.cookie.split(';');
-      for (let i = 0; i < cookies.length; i++) {
-          const cookie = cookies[i].trim();
-          // Does this cookie string begin with the name we want?
-          if (cookie.substring(0, name.length + 1) === (name + '=')) {
-              cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-              break;
-          }
-      }
-  }
-  return cookieValue;
 }

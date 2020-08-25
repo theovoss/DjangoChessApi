@@ -1,11 +1,9 @@
 
 function historyClickHandler(e) {
   url = this.dataset.url;
-  console.log("inner url");
-  console.log(url);
-  const otherParams = {
-    method: "POST"
-  }
+
+  const otherParams = getFetchParams({});
+
   fetch(url, otherParams)
     .then(_ => location.reload())
     .catch(error => console.log(error));
