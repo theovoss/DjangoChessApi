@@ -103,15 +103,14 @@ class Game(models.Model):
         return {'name': self.rule_name, 'description': self.rule_description}
 
     def set_player(self, user):
-        print(type(user))
-        print("Setting player to user:" + str(user.id))
-        if self.player1 is not None:
-            if self.player2 is None:
-                self.player2 = user
-        elif self.player2 is not None:
-            self.player1 = user
-        else:
-            if random.choice([1, 2]) == 1:
+        if user.is_authenticated:
+            if self.player1 is not None:
+                if self.player2 is None:
+                    self.player2 = user
+            elif self.player2 is not None:
                 self.player1 = user
             else:
-                self.player2 = user
+                if random.choice([1, 2]) == 1:
+                    self.player1 = user
+                else:
+                    self.player2 = user
