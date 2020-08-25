@@ -92,9 +92,9 @@ class TestGetDisplayablehistory(SimpleTestCase):
         self.assertEqual(
             actual,
             [
-                {'name': 'b2 -> b3', 'image': '', 'class': ''},
-                {'name': 'e7 -> e6', 'image': '', 'class': ''},
-                {'name': 'b3 -> b4', 'image': '', 'class': 'current'},
+                {'name': 'b2 -> b3', 'images': [], 'class': ''},
+                {'name': 'e7 -> e6', 'images': [], 'class': ''},
+                {'name': 'b3 -> b4', 'images': [], 'class': 'current'},
             ],
         )
 
@@ -109,11 +109,13 @@ class TestGetDisplayablehistory(SimpleTestCase):
         self.assertEqual(
             actual,
             [
-                {'name': 'b2 -> b4', 'image': '', 'class': ''},
-                {'name': 'c7 -> c5', 'image': '', 'class': ''},
+                {'name': 'b2 -> b4', 'images': [], 'class': ''},
+                {'name': 'c7 -> c5', 'images': [], 'class': ''},
                 {
                     'name': 'b4 -> c5',
-                    'image': 'https://upload.wikimedia.org/wikipedia/commons/c/c7/Chess_pdt45.svg',
+                    'images': [
+                        'https://upload.wikimedia.org/wikipedia/commons/c/c7/Chess_pdt45.svg'
+                    ],
                     'class': 'current',
                 },
             ],

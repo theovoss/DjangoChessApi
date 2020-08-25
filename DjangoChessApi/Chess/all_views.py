@@ -29,10 +29,7 @@ def home(request):
     return render(
         request,
         'chess/main/home.html',
-        {
-            'game_types': private_game_types,
-            'standard_game_types': standard_game_types,
-        },
+        {'game_types': private_game_types, 'standard_game_types': standard_game_types,},
     )
 
 

@@ -40,8 +40,10 @@
           {% for item in history %}
             <p class={{item|get_item:'class'}}>
               {{item|get_item:'name'}}
-              {% if item|get_item:'image' %}
-                <img src="{{item|get_item:'image'}}">
+              {% if item|get_item:'images' %}
+                {% for image in item|get_item:'images' %}
+                  <img src="{{image}}">
+                {% endfor %}
               {% endif %}
             </p>
           {% endfor %}

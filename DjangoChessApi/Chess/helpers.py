@@ -1,7 +1,7 @@
 from chess.chess_configurations import get_standard_chess_pieces
 
 
-images = {
+piece_images = {
     'king': {
         'black': 'https://upload.wikimedia.org/wikipedia/commons/f/f0/Chess_kdt45.svg',
         'white': 'https://upload.wikimedia.org/wikipedia/commons/4/42/Chess_klt45.svg',
@@ -51,8 +51,8 @@ def get_pieces(data, ignore=None):
 
 
 def _get_image(piece, color):
-    if piece in images and color in images[piece]:
-        return images[piece][color]
+    if piece in piece_images and color in piece_images[piece]:
+        return piece_images[piece][color]
     return None
 
 
@@ -84,21 +84,21 @@ def get_displayable_history(chess):
     for record in internal_history:
         displayable_name = _get_displayable_history_name(record['start'], record['end'])
 
-        image = ""
+        images = []
         class_name = ""
         if record.get('current'):
             class_name = "current"
 
         if 'captures' in record:
             recorded_captures = record['captures']
-            if len(recorded_captures) > 1:
-                print("Captured multiple... now what??")
             for capture in recorded_captures:
                 name = capture['name']
                 color = capture['color']
-                image = _get_image(name, color)
+                images.append(_get_image(name, color))
 
-        history.append({'name': displayable_name, 'image': image, 'class': class_name})
+        history.append(
+            {'name': displayable_name, 'images': images, 'class': class_name}
+        )
     return history
 
 

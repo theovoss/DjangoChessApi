@@ -10,4 +10,6 @@ class GameListView(ListView):
     paginate_by = 100  # if pagination is desired
 
     def get_queryset(self):
-        return Game.objects.filter(player1=self.request.user) | Game.objects.filter(player1=self.request.user)
+        return Game.objects.filter(player1=self.request.user) | Game.objects.filter(
+            player1=self.request.user
+        )
