@@ -32,14 +32,18 @@
       <li class="nav-item">
         <a class="nav-link disabled" href="">Complete Games</a>
       </li>
-      {% if user %}
-        <li>
+      {% if user.is_authenticated %}
+        <li class="nav-link disabled">
           Welcome {{ user }}!!
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href={% url 'logout' %}?next={% url 'login' %}>logout</a>
+        </li>
+      {% else %}
+        <li class="nav-item">
+          <a class="nav-link" href={% url 'login' %}>login</a>
+        </li>
       {% endif %}
-      <li class="nav-item">
-        <a class="nav-link" href={% url 'logout' %}?next={% url 'login' %}>logout</a>
-      </li>
     </ul>
   </nav>
   {% block body %}
