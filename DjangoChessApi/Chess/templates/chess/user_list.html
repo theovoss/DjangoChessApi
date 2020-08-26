@@ -1,0 +1,17 @@
+{% extends 'chess/header.html' %}
+
+{% block body %}
+  <div id="users" class="d-flex flex-wrap">
+    {% for a_user in users %}
+      {% if not a_user.is_superuser %}
+        <div class="card">
+          <p class="cart-title">{{ a_user }}</p>
+          <div class="card-body d-flex">
+            <button>Game Types {{ a_user.gametype_set.all.count }}</button>
+            <button>Current Games</button>
+          </div>
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+{% endblock %}

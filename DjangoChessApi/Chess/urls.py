@@ -2,6 +2,7 @@ from django.urls import path
 
 from DjangoChessApi.Chess import all_views as views
 from DjangoChessApi.Chess.views.GameListView import GameListView
+from DjangoChessApi.Chess.views.UserListView import UserListView
 
 
 urlpatterns = [
@@ -23,6 +24,7 @@ urlpatterns = [
     ),
     path('game/play/<int:game_id>/', views.play_game, name="play-game"),
     path('games/', GameListView.as_view(), name="games"),
+    path('users/', UserListView.as_view(), name="users"),
 ]
 
 app_name = 'Chess'
