@@ -1,4 +1,3 @@
-from django.utils import timezone
 from django.views.generic.list import ListView
 
 from DjangoChessApi.Chess.models import Game
