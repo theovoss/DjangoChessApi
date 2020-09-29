@@ -115,7 +115,7 @@ python-versions = "*"
 version = "0.1.0"
 
 [package.source]
-reference = "f45d1f6b9fefa2c9f6bcb6cfc0f33431442ab770"
+reference = "8c04e4d94fd49c3fa4037b7ca9fce82cde6b2a90"
 type = "git"
 url = "https://github.com/theovoss/Chess"
 [[package]]
@@ -1029,7 +1029,7 @@ python-versions = "*"
 version = "1.12.1"
 
 [metadata]
-content-hash = "9eb7f5c739fb3b0140d9cca7374472bc7483a24d730f1d425b9cc2264fa530f7"
+content-hash = "69c367551aaa70b0a3360df3d9a9f62d2dc5c1fad7f1c18450fbf00b5c66ae5d"
 lock-version = "1.0"
 python-versions = "^3.8"
 
