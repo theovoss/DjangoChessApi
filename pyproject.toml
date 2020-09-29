@@ -32,7 +32,7 @@ minilog = "^1.6"
 # Deployment
 whitenoise = "^5.0.1"
 gunicorn = "^20.0.4"
-chess = {git = "https://github.com/theovoss/Chess", rev = "f45d1f6b9fefa2c9f6bcb6cfc0f33431442ab770"}
+chess = {git = "https://github.com/theovoss/Chess", rev = "8c04e4d94fd49c3fa4037b7ca9fce82cde6b2a90"}
 django-crispy-forms = "^1.9.2"
 django-registration = "^3.1"
 
