@@ -15,7 +15,7 @@ all: install
 ci: check test ## CI | Run all validation targets
 
 .PHONY: watch
-watch: install ## CI | Rerun all validation targests in a loop
+watch: install	 ## CI | Rerun all validation targests in a loop
 	@ rm -rf $(FAILURES)
 	$(RUN) sniffer
 

@@ -7,16 +7,16 @@ authors = ["Theo Voss <you@yourdomain.com>"]
 
 [tool.poetry.dependencies]
 
-python = "^3.6.4"
+python = "^3.8"
 
 # Django
-django = "^3.0"
+django = "^3.1"
 django-allauth = "*"
 django-cors-headers = "*"
 django-grappelli = "*"
 
 # API
-djangorestframework = "^3.7"
+djangorestframework = "^3.11"
 drf-nested-routers = "*"
 drf-yasg = "*"
 
@@ -32,7 +32,7 @@ minilog = "^1.6"
 # Deployment
 whitenoise = "^5.0.1"
 gunicorn = "^20.0.4"
-chess = {git = "https://github.com/theovoss/Chess", rev = "536ce4df24dedf7774da351897c5e452f613cf14"}
+chess = {git = "https://github.com/theovoss/Chess", rev = "f45d1f6b9fefa2c9f6bcb6cfc0f33431442ab770"}
 django-crispy-forms = "^1.9.2"
 django-registration = "^3.1"
 

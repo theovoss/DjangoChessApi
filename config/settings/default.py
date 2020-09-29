@@ -80,6 +80,11 @@ LOGGING = {
 
 SITE_ID = 1
 
+
+SWAGGER_SETTINGS = {
+    "DEFAULT_GENERATOR_CLASS": "rest_framework.schemas.generators.BaseSchemaGenerator",
+}
+
 ###############################################################################
 # Sessions
 

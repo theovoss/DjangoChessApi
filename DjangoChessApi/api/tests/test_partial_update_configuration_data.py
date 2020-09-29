@@ -15,10 +15,12 @@ class ConfigurationTests(APITestCase):
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertGreater(len(response.data), 4)
-        self.assertContains(response, "first_move")
+        print(response)
+        print(response.data)
         self.assertContains(response, "ends_on_enemy")
         self.assertContains(response, "directional")
         self.assertContains(response, "distance_of_one")
+        self.assertContains(response, "doesnt_land_on_own_piece")
 
     def test_get_directions(self):
         url = reverse('directions-list')

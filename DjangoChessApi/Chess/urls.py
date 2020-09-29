@@ -2,8 +2,8 @@ from django.urls import path
 
 from DjangoChessApi.Chess import all_views as views
 from DjangoChessApi.Chess.views.GameListView import GameListView
-from DjangoChessApi.Chess.views.UserListView import UserListView
 from DjangoChessApi.Chess.views.UserGameTypeListView import UserGameTypeListView
+from DjangoChessApi.Chess.views.UserListView import UserListView
 
 
 urlpatterns = [
@@ -26,7 +26,11 @@ urlpatterns = [
     path('game/play/<int:game_id>/', views.play_game, name="play-game"),
     path('games/', GameListView.as_view(), name="games"),
     path('users/', UserListView.as_view(), name="users"),
-    path('users/<int:user_id>/game_type/', UserGameTypeListView.as_view(), name="user_gametype"),
+    path(
+        'users/<int:user_id>/game_type/',
+        UserGameTypeListView.as_view(),
+        name="user_gametype",
+    ),
 ]
 
 app_name = 'Chess'
