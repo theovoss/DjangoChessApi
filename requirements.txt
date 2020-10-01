@@ -1,13 +1,13 @@
 asgiref==3.2.10
 certifi==2020.6.20
 chardet==3.0.4
--e git+https://github.com/theovoss/Chess@5271006d5e1af27fee8ddee5308d81dc54159cc6#egg=chess
+-e git+https://github.com/theovoss/Chess@32072cbc8523d4059fff1c8f5f601d42400f4668#egg=chess
 confusable-homoglyphs==3.2.0
 coreapi==2.3.3
 coreschema==0.0.4
 defusedxml==0.6.0
 dj-database-url==0.4.2
-django==3.1.1
+django==3.1.2
 django-allauth==0.42.0
 django-cors-headers==3.5.0
 django-crispy-forms==1.9.2
@@ -17,7 +17,7 @@ django-registration==3.1.1
 djangorestframework==3.12.1
 drf-nested-routers==0.91
 drf-yasg==1.17.1
-faker==4.1.4
+faker==4.1.6
 gunicorn==20.0.4
 idna==2.10
 inflection==0.5.1
