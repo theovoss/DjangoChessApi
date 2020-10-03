@@ -6,14 +6,13 @@
 
 .row {
   display: flex;
-  flex: 1;
   margin: 0;
 }
 
 .square {
   flex: 1;
-  height: 9vh;
-  width: 9vh;
+  height: 9vmin;
+  width: 9vmin;
 }
 
 .dark {
