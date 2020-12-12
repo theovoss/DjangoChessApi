@@ -12,6 +12,8 @@ class MoveViewSet(viewsets.ViewSet):
     @action(methods=['POST'], detail=True, url_name="promote")
     def promote(self, request, pk=None):
         game = Game.objects.get(pk=pk)
+        if not game.is_my_turn(request.user):
+            return Response("not your turn", status=status.HTTP_400_BAD_REQUEST)
         chess = Chess(game.data)
 
         chess.promote(
@@ -27,17 +29,21 @@ class MoveViewSet(viewsets.ViewSet):
     @action(methods=['POST'], detail=True, url_name="destinations")
     def get_destinations(self, request, pk=None):
         game = Game.objects.get(pk=pk)
-        chess = Chess(game.data)
+        if game.ready_to_play:
+            chess = Chess(game.data)
 
-        row = int(request.data['row'])
-        column = int(request.data['column'])
+            row = int(request.data['row'])
+            column = int(request.data['column'])
 
-        destinations = chess.destinations((row, column))
-        return Response(destinations)
+            destinations = chess.destinations((row, column))
+            return Response(destinations)
+        return Response("not your turn", status=status.HTTP_400_BAD_REQUEST)
 
     @action(methods=['POST'], detail=True, url_name="move")
     def move(self, request, pk=None):
         game = Game.objects.get(pk=pk)
+        if not game.is_my_turn(request.user):
+            return Response("not your turn", status=status.HTTP_400_BAD_REQUEST)
 
         chess = Chess(game.data)
 

@@ -7,7 +7,15 @@
       <p>{{ game_type.description }}</p>
     </div>
     <div class="game-type-actions">
-      <button data-url={% url 'Chess:create-game-redirect' game_type.id %}>Play Game</button>
+      <div class="dropdown">
+        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Play game
+        </a>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+          <a class="dropdown-item" href="{% url 'Chess:create-game-redirect' game_type.id %}?free_play=true">Free Play</a>
+          <a class="dropdown-item" href="{% url 'Chess:create-game-redirect' game_type.id %}?free_play=false">Invite Opponent</a>
+        </div>
+      </div>
       <button data-url={% url 'Chess:configure-edit' game_type.id %}>Edit Rules</button>
       <button data-url={% url 'chess-configuration-detail' game_type.id %} class="delete">Delete Rules</button>
     </div>

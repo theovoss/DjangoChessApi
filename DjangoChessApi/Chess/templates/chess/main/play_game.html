@@ -23,6 +23,11 @@
         <h3>{{ rule_summary|get_item:"name" }}</h3>
         <p>{{ rule_summary|get_item:"description" }}</p>
       </div>
+      <div class="invite">
+        {% if not ready_to_play %}
+          <p>First to sign in at: <a href="#" class="join" data-url={{ join_url }}>{{ join_url }}</a>  will be player 2.</p>
+        {% endif %}
+      </div>
       <div class="turn">
         <h3>{{ turn|title }}'s Turn</h3>
       </div>

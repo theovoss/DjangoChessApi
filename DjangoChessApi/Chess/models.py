@@ -75,6 +75,8 @@ class Game(models.Model):
     rule_name = models.CharField(max_length=30)
     rule_description = models.TextField()
 
+    free_play = models.BooleanField(default=True)  # if set to true, don't enforce users for white/black
+
     history = models.JSONField(null=True)
     player1 = models.ForeignKey(
         User, null=True, on_delete=CASCADE, related_name='games_player1'
@@ -87,12 +89,30 @@ class Game(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     @property
+    def has_both_players(self):
+        return self.player1 is not None and self.player2 is not None
+
+    @property
+    def ready_to_play(self):
+        return self.free_play if self.free_play else self.has_both_players
+
+    @property
     def rules(self):
         return self.data['pieces']
 
     @property
     def turn(self):
         return self.data['players']['current']
+
+    def is_my_turn(self, user):
+        if not self.ready_to_play:
+            return False
+        elif self.free_play:
+            return True
+        elif self.data['players']['current'] == 'Player 1':
+            return user == self.player1
+        else:
+            return user == self.player2
 
     @property
     def turn_color(self):
@@ -102,15 +122,24 @@ class Game(models.Model):
     def rule_summary(self):
         return {'name': self.rule_name, 'description': self.rule_description}
 
-    def set_player(self, user):
+    def set_player(self, user, color):
         if user.is_authenticated:
-            if self.player1 is not None:
-                if self.player2 is None:
-                    self.player2 = user
-            elif self.player2 is not None:
-                self.player1 = user
-            else:
+            if color == 'random':
                 if random.choice([1, 2]) == 1:
                     self.player1 = user
                 else:
                     self.player2 = user
+            elif color == 'white' and self.player1 is None:
+                self.player1 = user
+            elif color == 'black' and self.player2 is None:
+                self.player2 = user
+            else:
+                print("somehow don't know who to set??")
+
+    def set_player2(self, user):
+        if self.player1 is None and self.player2 != user:
+            self.player1 = user
+        elif self.player2 is None and self.player1 != user:
+            self.player2 = user
+        else:
+            print("Setting second player but already set or existing player.")

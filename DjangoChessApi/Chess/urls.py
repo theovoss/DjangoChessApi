@@ -23,6 +23,7 @@ urlpatterns = [
         views.create_game_redirect,
         name="create-game-redirect",
     ),
+    path('game/join/<int:game_id>/', views.join_game, name="join-game"),
     path('game/play/<int:game_id>/', views.play_game, name="play-game"),
     path('games/', GameListView.as_view(), name="games"),
     path('users/', UserListView.as_view(), name="users"),

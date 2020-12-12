@@ -1,5 +1,7 @@
-from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.conf import settings
+
+from django.http import HttpResponse, HttpResponseRedirect
+from django.shortcuts import render, redirect
 
 from chess.chess import Chess
 from chess.chess_configurations import (
@@ -39,25 +41,43 @@ def create_game(request):
 
 
 def create_game_redirect(request, game_type_id):
+    free_play = request.GET.get('free_play', '') == 'true'
+    color = request.GET.get('color', 'random')
     game_type = GameType.objects.get(pk=game_type_id)
     new_game = Game(
         data=game_type.get_rules(),
         rule_name=game_type.name,
         rule_description=game_type.description,
+        free_play=free_play
     )
-    new_game.set_player(request.user)
+    new_game.set_player(request.user, color)
     new_game.save()
     url = reverse('Chess:play-game', kwargs={'game_id': new_game.id})
-    return HttpResponseRedirect(url)
+    return redirect(url)
+
+
+def join_game(request, game_id):
+    if not request.user.is_authenticated:
+        return redirect('%s?next=%s' % (settings.LOGIN_URL, request.path))
+
+    game = Game.objects.get(pk=game_id)
+    game.set_player2(request.user)
+    game.save()
+
+    url = reverse('Chess:play-game', kwargs={'game_id': game.id})
+    return redirect(url)
 
 
 def play_game(request, game_id):
     game = Game.objects.get(pk=game_id)
+
     chess = Chess(game.data)
     displayable_board = get_displayable_board(chess.board)
     destinations_url = reverse('move-destinations', args=[game.id])
     move_url = reverse('move-move', args=[game.id])
     promote_url = reverse('move-promote', args=[game.id])
+    join_path = reverse('Chess:join-game', args=[game.id])
+    join_url = request.build_absolute_uri(join_path)
 
     promotion_pieces = get_pieces(game.data, ignore=['king', 'pawn'])
 
@@ -73,6 +93,8 @@ def play_game(request, game_id):
         'id': game.id,
         'game': game,
         'promotion_pieces': promotion_pieces,
+        'join_url': join_url,
+        'ready_to_play': game.ready_to_play,
     }
     return render(request, 'chess/main/play_game.html', context)
 
