@@ -219,7 +219,7 @@ python-versions = "*"
 version = "0.1.0"
 
 [package.source]
-reference = "32072cbc8523d4059fff1c8f5f601d42400f4668"
+reference = "e4d37c78c2d181b6c25a08a7b565dfd60365021f"
 type = "git"
 url = "https://github.com/theovoss/Chess"
 
