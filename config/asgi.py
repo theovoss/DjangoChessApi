@@ -6,9 +6,8 @@ import DjangoChessApi.Chess.routing
 import django
 
 
-django.setup()
-
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings.production")
+django.setup()
 
 application = ProtocolTypeRouter({
     "websocket": AuthMiddlewareStack(
