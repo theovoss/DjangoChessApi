@@ -9,7 +9,7 @@ cffi==1.14.4; python_version >= "3.6" and python_full_version < "3.0.0" or pytho
 channels-redis==3.2.0; python_version >= "3.6"
 channels==3.0.2; python_version >= "3.6"
 chardet==3.0.4; python_version >= "2.7" and python_full_version < "3.0.0" or python_full_version >= "3.5.0"
-chess @ git+https://github.com/theovoss/Chess@16fde02a930d39d23015674585dbeb18a9952ec0
+chess @ git+https://github.com/theovoss/Chess@9cad80ade50f4e7febef00e6bcdd16a4d1c10087
 confusable-homoglyphs==3.2.0; python_version >= "3.5"
 constantly==15.1.0; python_version >= "3.6" and python_full_version < "3.0.0" or python_full_version >= "3.5.0" and python_version >= "3.6"
 coreapi==2.3.3; python_version >= "2.7" and python_full_version < "3.0.0" or python_full_version >= "3.5.0"
