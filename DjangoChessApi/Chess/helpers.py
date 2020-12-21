@@ -65,16 +65,15 @@ def get_displayable_board(board):
 
     for position, piece in board.items():
         if not piece:
-            continue
-        color = piece.color
-
-        image = _get_image(piece.kind, color)
-        displayable[_make_frontend_key(position)] = {
-            'image': image,
-            'promote_me_daddy': piece.promote_me_daddy,
-            'name': piece.kind,
-            'color': piece.color,
-        }
+            displayable[_make_frontend_key(position)] = {}
+        else:
+            image = _get_image(piece.kind, piece.color)
+            displayable[_make_frontend_key(position)] = {
+                'image': image,
+                'promote_me_daddy': piece.promote_me_daddy,
+                'name': piece.kind,
+                'color': piece.color,
+            }
     return displayable
 
 

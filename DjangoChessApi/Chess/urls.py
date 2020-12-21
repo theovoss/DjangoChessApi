@@ -32,6 +32,9 @@ urlpatterns = [
         UserGameTypeListView.as_view(),
         name="user_gametype",
     ),
+
+    path('chat/', views.index, name='index'),
+    path('chat/<str:room_name>/', views.room, name='room'),
 ]
 
 app_name = 'Chess'
