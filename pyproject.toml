@@ -38,6 +38,7 @@ django-registration = "^3.1"
 channels = "^3.0.2"
 djangochannelsrestframework = "^0.2.0"
 channels_redis = "^3.2.0"
+uvicorn = "^0.13.2"
 
 [tool.poetry.dev-dependencies]
 
