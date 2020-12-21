@@ -3,7 +3,7 @@ squares = document.querySelectorAll(".square");
 game_id =  document.getElementById('game_id').dataset.id;
 
 const chatSocket = new WebSocket(
-  'ws://'
+  'wss://'
   + window.location.host
   + '/ws/chat/'
   + game_id
