@@ -13,13 +13,15 @@
     <script>
         const roomName = JSON.parse(document.getElementById('room-name').textContent);
 
+        var prefix = 'wss://';
+        if (location.protocol !== 'https:') {
+            prefix = 'ws://';
+        }
+        var url = prefix + window.location.host + '/ws/chat/' + roomName + '/'
         const chatSocket = new WebSocket(
-            'wss://'
-            + window.location.host
-            + '/ws/chat/'
-            + roomName
-            + '/'
+            url
         );
+        console.log("Chat url is: " + url);
 
         chatSocket.onmessage = function(e) {
             const data = JSON.parse(e.data);

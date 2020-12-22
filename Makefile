@@ -38,7 +38,6 @@ doctor: ## Check for required system dependencies
 VIRTUAL_ENV ?= .venv
 
 BACKEND_DEPENDENCIES = $(VIRTUAL_ENV)/.poetry-$(shell bin/checksum pyproject.toml poetry.lock)
-FRONTEND_DEPENDENCIES =
 
 .PHONY: install
 ifndef SKIP_INSTALL

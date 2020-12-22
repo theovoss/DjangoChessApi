@@ -2,8 +2,12 @@ squares = document.querySelectorAll(".square");
 
 game_id =  document.getElementById('game_id').dataset.id;
 
+var prefix = 'wss://';
+if (location.protocol !== 'https:') {
+  prefix = 'ws://';
+}
 const chatSocket = new WebSocket(
-  'wss://'
+  prefix
   + window.location.host
   + '/ws/chat/'
   + game_id
