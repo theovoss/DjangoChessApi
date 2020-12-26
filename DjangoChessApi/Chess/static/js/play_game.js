@@ -16,27 +16,37 @@ const chatSocket = new WebSocket(
 
 chatSocket.onmessage = function(e) {
   const data = JSON.parse(e.data);
+  console.log(data);
   updateBoard(data.board);
   updateHistory(data.history);
+  updateCurrentPlayer(data.color);
 };
 
-function updateHistory(history_json) {
+function updateCurrentPlayer(color) {
+  console.log("Updating current player");
+  elem = document.getElementById('turn');
+  elem.innerText = capitalizeFirstLetter(color) + "'s Turn";
+}
 
+function capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+function updateHistory(history_json) {
+  console.log("Not updating history");
 }
 
 function updateBoard(board_json, start=null, destination=null) {
-  if(start != null && destination != null) {
-    // only update start and destination
-  } else {
+  console.log("Updating board")
     // update everything
-    for (const [key, value] of Object.entries(board_json)) {
-      setImage(key, value.image);
-    }
+  for (const [key, value] of Object.entries(board_json)) {
+    setImage(key, value.image);
   }
 }
 
 function setImage(id, image=null) {
   let elem = document.getElementById(id);
+
   elem.innerHTML = "";
   if(image != null) {
     var img = document.createElement("img");
