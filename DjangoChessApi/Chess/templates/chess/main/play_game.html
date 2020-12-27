@@ -42,7 +42,7 @@
           <h3 >White {{ game.player1|title|default:"NA" }}</h3>
           <h3>Black {{ game.player2|title|default:"NA" }}</h3>
         </div>
-        <div class="history-content">
+        <div id="history-content" class="history-content">
           {% for item in history %}
             <p class={{item|get_item:'class'}}>
               {{item|get_item:'name'}}

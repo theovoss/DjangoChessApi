@@ -33,15 +33,40 @@ function capitalizeFirstLetter(string) {
 }
 
 function updateHistory(history_json) {
-  console.log("Not updating history");
+  console.log("Updating history");
+  // update all history
+  elem = document.getElementById("history-content");
+  elem.innerHTML = '';
+  history_json.forEach(item => {
+    var hist_elem = getHistoryItem(item);
+    elem.appendChild(hist_elem);
+  });
+  elem.scrollTop = elem.scrollHeight;
 }
 
 function updateBoard(board_json, start=null, destination=null) {
   console.log("Updating board")
-    // update everything
+  // update everything
   for (const [key, value] of Object.entries(board_json)) {
     setImage(key, value.image);
   }
+}
+
+function getHistoryItem(item) {
+  let elem = document.createElement("p");
+  var t = document.createTextNode(item.name);
+  elem.appendChild(t);
+  if(item.class) {
+    elem.classList.add(item.class);
+  }
+  if(item.images.length > 0) {
+    item.images.forEach(img_link => {
+      img = document.createElement("img");
+      img.setAttribute('src', img_link);
+      elem.appendChild(img);
+    })
+  }
+  return elem;
 }
 
 function setImage(id, image=null) {
