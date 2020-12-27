@@ -107,6 +107,8 @@ class Game(models.Model):
     def is_my_turn(self, user):
         if not self.ready_to_play:
             return False
+        elif self.free_play:
+            return True
         elif self.data['players']['current'] == 'Player 1':
             return user == self.player1
         else:

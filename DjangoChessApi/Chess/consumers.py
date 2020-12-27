@@ -51,13 +51,16 @@ class ChatConsumer(AsyncWebsocketConsumer):
         chess = Chess(game.data)
 
         if not await self.is_my_turn(game_id, self.scope["user"]):
+            print("Failed Not my turn")
             await self.send_update(game)
         else:
             chess = Chess(game.data)
-            chess.move(self.convert_to_position(message['start']), self.convert_to_position(message['destination']))
-
-            game = await self.save_game(game, chess)
+            print("Trying to move")
+            moved = chess.move(self.convert_to_position(message['start']), self.convert_to_position(message['destination']))
+            print("Successfully moved: " + str(moved))
+            await self.save_game(game, chess)
             await self.send_update(game)
+
 
     def convert_to_position(self, position):
         return (int(position['row']), int(position['column']))
@@ -83,4 +86,3 @@ class ChatConsumer(AsyncWebsocketConsumer):
     def save_game(self, game, chess):
         game.data = chess.export()
         game.save()
-        return game
