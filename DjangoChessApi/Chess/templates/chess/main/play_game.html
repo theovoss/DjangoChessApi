@@ -62,6 +62,6 @@
 {% block js_imports %}
   <script src="{% static 'js/history.js' %}"></script>
   <script src="{% static 'js/board.js' %}"></script>
-  <script src="{% static 'js/play_game.js' %}"></script>
-  <script src="{% static 'js/piece_selection.js' %}"></script>
+  <script type="module" src="{% static 'js/play_game.js' %}"></script>
+  <script type="module" src="{% static 'js/piece_selection.js' %}"></script>
 {% endblock %}
