@@ -26,7 +26,12 @@ function expand(e) {
 
 var checkboxes = document.querySelectorAll('input[type="checkbox"]');
 
-checkboxes.forEach((checkbox) => checkbox.addEventListener("change", save_checks));
+checkboxes.forEach((checkbox) => {
+  if(checkbox.classList.contains("not_this_one")) {
+    return;
+  }
+  checkbox.addEventListener("change", save_checks);
+});
 
 function save_checks(e) {
   url = document.querySelector('.url').dataset.url;
@@ -49,4 +54,20 @@ function save_checks(e) {
   fetch(url, otherParams)
     .then(response => console.log(response))
     .catch(error => console.log(error));
+}
+
+function json_beautify(id) {
+  var elem = document.getElementById(id);
+
+  var obj = JSON.parse( elem.value.replace(/'/g, '"') );
+  var pretty = JSON.stringify(obj, undefined, 4);
+  elem.value = pretty;
+};
+
+// Then use it like this on any textarea
+json_beautify("raw");
+
+function toggle_raw() {
+  document.getElementById("raw").classList.toggle("d-none");
+  document.getElementById("formatted").classList.toggle("d-none");
 }

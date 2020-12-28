@@ -21,11 +21,17 @@
     </form>
     <button data-url={% url 'chess-configuration-detail' id %} data-redirect_url={% url 'Chess:home' %} class="delete btn btn-danger btn-sm rounded-0 align-items-center" type="button" data-toggle="tooltip" data-placement="top" title="Delete"> <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Delete</button>
   </div>
-  <div class='pieces'>
+
+  <button id="toggle_raw" onclick="toggle_raw()">Toggle Raw</button>
+
+  <div id="formatted" class='pieces'>
     <div class="url" data-url={{ checkmark_url }}></div>
     {% for piece, data in pieces.items %}
       {% include "chess/secondary/piece_configuration.html" with piece=piece data=data enums=enums %}
     {% endfor %}
+  </div>
+  <div class="flex-column">
+    <textarea id="raw" rows=50 class="w-100 d-none">{{ pieces }}</textarea>
   </div>
 
   <script src="{% static 'js/configuration.js' %}"></script>

@@ -2,7 +2,7 @@
 {% load index %}
 
 {% block details %}
-<div class='moves'>
+<div id="formated" class='moves'>
   {% for i in '0123'|make_list %}
     <div class="movement">
         <h6 class="card-subtitle">Directions {{ forloop.counter }}</h6>
@@ -87,7 +87,6 @@
             <textarea>{{ move.capture_at|join:"&#13;&#10;" }}</textarea>
           {% endwith %}
         </div>
-
 
         <h6 class="card-subtitle"> Post Move Actions {{ forloop.counter }}</h6>
         <div>
