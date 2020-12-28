@@ -160,6 +160,11 @@ def configuration(request, game_type_id):
     pre_move_checks = get_pre_move_check_rules()
     pieces = get_pieces(game_type.rules)['black']
 
+    # always have 1 blank move option for additional user-defined moves.
+    # TODO: Add a add/delete button for each move
+    for key in get_pieces(game_type.rules)['black'].keys():
+        pieces[key]['moves'].append({})
+
     checkmark_url = reverse('chess-configuration-checkmark', args=[game_type.id])
 
     context = {

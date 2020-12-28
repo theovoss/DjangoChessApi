@@ -2,20 +2,19 @@
 {% load index %}
 
 {% block details %}
-<div id="formated" class='moves'>
-  {% for i in '0123'|make_list %}
+<div class='moves'>
+  {% for move in data.moves %}
+    {% with i=forloop.counter %}
     <div class="movement">
         <h6 class="card-subtitle">Directions {{ forloop.counter }}</h6>
         <div>
           {% for direction in enums.directions %}
             <div class="form-check">
-              {% with move=data.moves|index:i %}
               {% if direction in move.directions %}
                 <input data-piece="{{piece}}" data-index="{{i}}" data-key="directions" data-value="{{direction}}" type="checkbox" class="form-check-input" name="{{ piece }}{{ i }}direction" checked>
               {% else %}
                 <input data-piece="{{piece}}" data-index="{{i}}" data-key="directions" data-value="{{direction}}" type="checkbox" class="form-check-input" name="{{ piece }}{{ i }}direction">
               {% endif %}
-              {% endwith %}
               <label class="form-check-label" for="{{ piece }} {{ direction }}">{{ direction }}</label>
             </div>
           {% endfor %}
@@ -23,7 +22,6 @@
 
         <h6 class="card-subtitle">Pre-Move Checks {{ forloop.counter }}</h6>
         <div>
-          {% with move=data.moves|index:i %}
           {% for check in move.pre_move_checks %}
             <div class="d-flex flex-row">
               <div>
@@ -45,20 +43,17 @@
               </div>
             </div>
           {% endfor %}
-          {% endwith %}
         </div>
 
         <h6 class="card-subtitle"> Movement Rules {{ forloop.counter }}</h6>
         <div>
           {% for movement in enums.movements %}
             <div class="form-check">
-              {% with move=data.moves|index:i %}
-                {% if movement in move.conditions %}
-                  <input data-piece="{{piece}}" data-index="{{i}}" data-key="conditions" data-value="{{movement}}" type="checkbox" class="form-check-input checked" name="{{ piece }}{{ i }}condition" checked>
-                {% else %}
-                  <input data-piece="{{piece}}" data-index="{{i}}" data-key="conditions" data-value="{{movement}}" type="checkbox" class="form-check-input" name="{{ piece }}{{ i }}condition">
-                {% endif %}
-              {% endwith %}
+              {% if movement in move.conditions %}
+                <input data-piece="{{piece}}" data-index="{{i}}" data-key="conditions" data-value="{{movement}}" type="checkbox" class="form-check-input checked" name="{{ piece }}{{ i }}condition" checked>
+              {% else %}
+                <input data-piece="{{piece}}" data-index="{{i}}" data-key="conditions" data-value="{{movement}}" type="checkbox" class="form-check-input" name="{{ piece }}{{ i }}condition">
+              {% endif %}
 
               <label class="form-check-label" for="{{ piece }} {{ movement }}">{{ movement }}</label>
             </div>
@@ -69,13 +64,11 @@
         <div>
           {% for action in enums.capture_actions %}
             <div class="form-check">
-              {% with move=data.moves|index:i %}
-                {% if action in move.capture_actions %}
-                  <input data-piece="{{piece}}" data-index="{{i}}" data-key="capture_actions" data-value="{{action}}" type="checkbox" class="form-check-input" name="{{ piece }}{{ i }}capture_action" checked>
-                {% else %}
-                  <input data-piece="{{piece}}" data-index="{{i}}" data-key="capture_actions" data-value="{{action}}" type="checkbox" class="form-check-input" name="{{ piece }}{{ i }}capture_action">
-                {% endif %}
-              {% endwith %}
+              {% if action in move.capture_actions %}
+                <input data-piece="{{piece}}" data-index="{{i}}" data-key="capture_actions" data-value="{{action}}" type="checkbox" class="form-check-input" name="{{ piece }}{{ i }}capture_action" checked>
+              {% else %}
+                <input data-piece="{{piece}}" data-index="{{i}}" data-key="capture_actions" data-value="{{action}}" type="checkbox" class="form-check-input" name="{{ piece }}{{ i }}capture_action">
+              {% endif %}
               <label class="form-check-label" for="{{ piece }} {{ action }}">{{ action }}</label>
             </div>
           {% endfor %}
@@ -83,37 +76,35 @@
 
         <h6 class="card-subtitle"> Additional Capture Locations {{ forloop.counter }}</h6>
         <div>
-          {% with move=data.moves|index:i %}
-            <textarea>{{ move.capture_at|join:"&#13;&#10;" }}</textarea>
-          {% endwith %}
+          <textarea class="w-100">{{ move.capture_at|join:"&#13;&#10;" }}</textarea>
         </div>
 
         <h6 class="card-subtitle"> Post Move Actions {{ forloop.counter }}</h6>
         <div>
           {% for action in enums.post_move_actions %}
             <div class="form-check">
-              {% with move=data.moves|index:i %}
-                {% if action in move.post_move_actions %}
-                  <input data-piece="{{piece}}" data-index="{{i}}" data-key="post_move_actions" data-value="{{action}}" type="checkbox" class="form-check-input" name="{{ piece }}{{ i }}post_move_action" checked>
-                {% else %}
-                  <input data-piece="{{piece}}" data-index="{{i}}" data-key="post_move_actions" data-value="{{action}}" type="checkbox" class="form-check-input" name="{{ piece }}{{ i }}post_move_action">
-                {% endif %}
-              {% endwith %}
+              {% if action in move.post_move_actions %}
+                <input data-piece="{{piece}}" data-index="{{i}}" data-key="post_move_actions" data-value="{{action}}" type="checkbox" class="form-check-input" name="{{ piece }}{{ i }}post_move_action" checked>
+              {% else %}
+                <input data-piece="{{piece}}" data-index="{{i}}" data-key="post_move_actions" data-value="{{action}}" type="checkbox" class="form-check-input" name="{{ piece }}{{ i }}post_move_action">
+              {% endif %}
               <label class="form-check-label" for="{{ piece }} {{ action }}">{{ action }}</label>
             </div>
           {% endfor %}
         </div>
 
         <h6 class="card-subtitle">Side Effects {{ forloop.counter }}</h6>
-          {% with move=data.moves|index:i %}
           <div class="d-flex flex-row">
-              <textarea>{{ move.side_effects }}</textarea>
+            <textarea class="w-100">{{ move.side_effects }}</textarea>
           </div>
-          {% endwith %}
         </h6>
 
-
       </div>
+
+    {% if i|divisibleby:2 %}
+      <hr>
+    {% endif %}
+    {% endwith %}
   {% endfor %}
 </div>
 {% endblock %}
