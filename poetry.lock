@@ -220,8 +220,8 @@ develop = false
 [package.source]
 type = "git"
 url = "https://github.com/theovoss/Chess"
-reference = "47590fac176e0f8f384851335831052bd9853d01"
-resolved_reference = "47590fac176e0f8f384851335831052bd9853d01"
+reference = "e53bb9c3644cd3a0b42f0cf0508962a8208c56bc"
+resolved_reference = "e53bb9c3644cd3a0b42f0cf0508962a8208c56bc"
 
 [[package]]
 name = "click"
@@ -1399,7 +1399,7 @@ testing = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "f5b06d025156a768a0c3d7bebff0a1dfb227bdeeddb5bbee4a418ede8ec9b560"
+content-hash = "3b9c4ccc31017dc7ae9a1b0af428f4182ffae30bcae978c1e1eb28aa5c02be36"
 
 [metadata.files]
 aioredis = [

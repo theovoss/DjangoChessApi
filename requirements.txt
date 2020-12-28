@@ -10,7 +10,7 @@ cffi==1.14.4; python_version >= "3.6" and python_full_version < "3.0.0" or pytho
 channels-redis==3.2.0; python_version >= "3.6"
 channels==3.0.2; python_version >= "3.6"
 chardet==4.0.0; python_version >= "2.7" and python_full_version < "3.0.0" or python_full_version >= "3.5.0"
-chess @ git+https://github.com/theovoss/Chess@47590fac176e0f8f384851335831052bd9853d01
+chess @ git+https://github.com/theovoss/Chess@e53bb9c3644cd3a0b42f0cf0508962a8208c56bc
 click==7.1.2; python_version >= "2.7" and python_full_version < "3.0.0" or python_full_version >= "3.5.0"
 confusable-homoglyphs==3.2.0; python_version >= "3.5"
 constantly==15.1.0; python_version >= "3.6" and python_full_version < "3.0.0" or python_full_version >= "3.5.0" and python_version >= "3.6"
