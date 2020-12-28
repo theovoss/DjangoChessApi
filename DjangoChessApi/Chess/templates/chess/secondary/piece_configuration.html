@@ -21,6 +21,33 @@
           {% endfor %}
         </div>
 
+        <h6 class="card-subtitle">Pre-Move Checks {{ forloop.counter }}</h6>
+        <div>
+          {% with move=data.moves|index:i %}
+          {% for check in move.pre_move_checks %}
+            <div class="d-flex flex-row">
+              <div>
+                <textarea>{{ check.locations|join:"&#13;&#10;" }}</textarea>
+              </div>
+              <div class="form-check d-flex flex-column">
+                {% for check_definition in enums.pre_move_checks %}
+                  {% with j=forloop.counter %}
+                    <div>
+                      {% if check_definition in check.checks %}
+                        <input data-piece="{{piece}}" data-index="{{i}}" data-key="pre_move_checks" data-value="{{check_definition}}" type="checkbox" class="form-check-input checked" name="{{ piece }}{{ i }}{{ j }}{{ check_definition }}" checked>
+                      {% else %}
+                        <input data-piece="{{piece}}" data-index="{{i}}" data-key="pre_move_checks" data-value="{{check_definition}}" type="checkbox" class="form-check-input" name="{{ piece }}{{ i }}{{ j }}{{ check_definition }}">
+                      {% endif %}
+                      <label class="form-check-label" for="{{ piece }}{{ i }}{{ j }}{{ check_definition }}">{{ check_definition }}</label>
+                    </div>
+                  {% endwith %}
+                {% endfor %}
+              </div>
+            </div>
+          {% endfor %}
+          {% endwith %}
+        </div>
+
         <h6 class="card-subtitle"> Movement Rules {{ forloop.counter }}</h6>
         <div>
           {% for movement in enums.movements %}
@@ -54,6 +81,14 @@
           {% endfor %}
         </div>
 
+        <h6 class="card-subtitle"> Additional Capture Locations {{ forloop.counter }}</h6>
+        <div>
+          {% with move=data.moves|index:i %}
+            <textarea>{{ move.capture_at|join:"&#13;&#10;" }}</textarea>
+          {% endwith %}
+        </div>
+
+
         <h6 class="card-subtitle"> Post Move Actions {{ forloop.counter }}</h6>
         <div>
           {% for action in enums.post_move_actions %}
@@ -69,6 +104,16 @@
             </div>
           {% endfor %}
         </div>
+
+        <h6 class="card-subtitle">Side Effects {{ forloop.counter }}</h6>
+          {% with move=data.moves|index:i %}
+          <div class="d-flex flex-row">
+              <textarea>{{ move.side_effects }}</textarea>
+          </div>
+          {% endwith %}
+        </h6>
+
+
       </div>
   {% endfor %}
 </div>
